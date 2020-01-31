@@ -1,0 +1,33 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Card.cs">
+    <Files>
+      <File FileName="Assets/Scripts/IniLoader.cs" Line="14" Column="6" />
+      <File FileName="Assets/Scripts/Card.cs" Line="15" Column="2" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="30" Column="1" />
+      <File FileName="Assets/Scripts/Deck.cs" Line="21" Column="7" />
+      <File FileName="Assets/Scripts/Defines.cs" Line="9" Column="35" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="unnamed" expanded="True">
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="Assets" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="Card.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
