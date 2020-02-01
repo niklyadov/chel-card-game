@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
         if (deck.CardList.Length == 0)
             throw new System.Exception("Error: empty deck");
-
+        Restart();
     }
 
     private void Update()
@@ -68,16 +68,48 @@ public class GameManager : MonoBehaviour
             Debug.Log("Right Choice");
             progressManager.ApplyChanges(currentCard.Right);
         }
+        Defines.VisManager.UpdateParametres();
 
         //добавить проверку на превышение параметров !!!
-        if (GameMode)
+        if (!CheckParameterNormal())
         {
-            currentCard = deck.GetRandom();
-            Defines.VisManager.UpdateParametres();
+            Restart();
         }
-
+        else
+            currentCard = deck.GetRandom();
         Defines.VisManager.UpdateMainCard(currentCard.Icon, currentCard.Text);
         CardPos = CardPosition.Passive;
+    }
+
+    private bool CheckParameterNormal()
+    {
+        var parametres = Defines.GameManager.progressManager.progresses;
+        var ok = false;
+
+        if (parametres[0] < 0)
+            currentCard = deckSpecial.CardList[0];
+        else if (parametres[0] > 100)
+            currentCard = deckSpecial.CardList[0];
+        else if (parametres[1] < 0)
+            currentCard = deckSpecial.CardList[0];
+        else if (parametres[1] > 100)
+            currentCard = deckSpecial.CardList[0];
+        else if (parametres[2] < 0)
+            currentCard = deckSpecial.CardList[0];
+        else if (parametres[2] > 100)
+            currentCard = deckSpecial.CardList[0];
+        else if (parametres[3] < 0)
+            currentCard = deckSpecial.CardList[0];
+        else if (parametres[3] > 100)
+            currentCard = deckSpecial.CardList[0];
+        else ok = true;
+
+        return ok;
+    }
+
+    private void Restart()
+    {
+        Defines.GameManager.progressManager.progresses = new float[] { 50f, 30f, 50f, 50f };
     }
 
     //из сложного: добавить начало игры
