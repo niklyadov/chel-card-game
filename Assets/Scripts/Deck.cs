@@ -7,16 +7,20 @@ using UnityEngine;
 public class Deck
 {
     public Card[] CardList;
+    System.Random rnd = new System.Random();
 
     public static Deck CreateFromJSON(string jsonString)
     {
         return JsonUtility.FromJson<Deck>(jsonString);
     }
 
-    /*
-    public string CreateToJSON()
+    public string CreateJson()
     {
         return JsonUtility.ToJson(this);
     }
-    */
+
+    public Card GetRandom() 
+    {
+        return CardList[rnd.Next(0, CardList.Length)];
+    }
 }

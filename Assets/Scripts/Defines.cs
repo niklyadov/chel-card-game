@@ -9,6 +9,8 @@ public static class Defines
     public static string WorkPath;
     public static string SpritesPath;
 
+    public static GameManager GameManager;
+
     static Defines()
     {
         WorkPath = Path.Combine("Assets", "Data");

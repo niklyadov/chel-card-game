@@ -10,6 +10,9 @@ public static class DeckLoader
 {
     public static Deck Load()
     {
+        if (!File.Exists(Defines.CardsDataPath))
+            return null;
+
         return Deck.CreateFromJSON(File.ReadAllText(Defines.CardsDataPath));
     }
 
