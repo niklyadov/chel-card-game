@@ -15,6 +15,10 @@ public class VisualManager : MonoBehaviour
     [SerializeField]
     private Text choiceDescrioption;
 
+    //показания параметров
+    [SerializeField]
+    private Text[] parametres = new Text[4];
+
     void Start()
     {
         Defines.VisManager = this;
@@ -36,6 +40,13 @@ public class VisualManager : MonoBehaviour
     {
         choiceDescrioption.text = description;
         Debug.Log("description Updated " + description);
+    }
+
+    public void UpdateParametres()
+    {
+        var newParams = Defines.GameManager.progressManager.progresses;
+        for (int i = 0; i < 4; i++)
+            parametres[i].text = System.Math.Round(newParams[i]).ToString() + '%';
     }
 
     //добавить обновление процентиков
