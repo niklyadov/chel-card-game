@@ -68,7 +68,10 @@ public class GameManager : MonoBehaviour
 
         //добавить проверку на превышение параметров !!!
         if (GameMode)
+        {
             currentCard = deck.GetRandom();
+            Defines.VisManager.UpdateParametres();
+        }
 
         Defines.VisManager.UpdateMainCard(currentCard.Icon, currentCard.Text);
         CardPos = CardPosition.Passive;
