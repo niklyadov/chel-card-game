@@ -13,7 +13,10 @@ public static class DeckLoader
         if (!File.Exists(Defines.CardsDataPath))
             return null;
 
-        return Deck.CreateFromJSON(File.ReadAllText(Defines.CardsDataPath));
+        var reader = new StreamReader(Defines.CardsDataPath, Encoding.UTF8);
+        var content = reader.ReadToEnd();
+        reader.Close();
+        return Deck.CreateFromJSON(content);
     }
 
 

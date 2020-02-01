@@ -74,19 +74,4 @@ public class GameManager : MonoBehaviour
             Debug.Log(" >> ."  + progress.ToString() + "  " + value); ////// PRINT DECK
         }
     }
-
-    private Sprite LoadSprite(string filePath)
-    {
-
-        if (!File.Exists(filePath))
-            return null;
-
-        var texture = new Texture2D(2, 2);
-        texture.LoadImage(File.ReadAllBytes(filePath));
-
-        return Sprite.Create(texture, new Rect(
-            new Vector2(0, 0),
-            new Vector2(64, 64)),
-            new Vector2(0, 0));
-    }
 }
