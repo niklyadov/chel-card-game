@@ -8,6 +8,7 @@ Packages/*
 ProjectSettings
 ProjectSettings/*
 .vs
-
+Temp
+Temp/*
 *.csproj
 *.sln
