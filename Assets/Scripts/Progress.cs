@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Progress
 {
+    public int Value { get { return val; } set { if (value >= 0 || value <= 100) val = value; } }
+    private int val;
     private float curValue = 0;
     private int minValue = 0;
     private int maxValue = 100;
@@ -30,7 +32,7 @@ public class Progress
                 curValue = t;
             }
 
-            Defines.GameManager.OnProgressChange(this, t);
+            //Defines.GameManager.OnProgressChange(this, t);
 
         }
     }

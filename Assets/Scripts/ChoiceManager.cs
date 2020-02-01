@@ -38,11 +38,12 @@ public class ChoiceManager : MonoBehaviour
             {
                 cardIsChanging = false;
                 cardTransform.position = basicPos;
+                //if (cardTransform.position.x < 0)
+                //    Defines.GameManager.LeftChoise();
+                //else
+                //    Defines.GameManager.RightChoise();
                 UpdateCard();
-                if (cardTransform.position.x < 0)
-                    Defines.GameManager.LeftChoise();
-                else
-                    Defines.GameManager.RightChoise();
+                Defines.progresVisual.UpdateProgress();
             }
             return;
         }
@@ -75,12 +76,12 @@ public class ChoiceManager : MonoBehaviour
     {
         if (x > Screen.width * 0.75f && cardTransform.position.x < _maxX)
         {
-            //choiceDescrioption.text = Defines.GameManager.currentCard.RightLabel;
+            choiceDescrioption.text = Defines.GameManager.currentCard.RightLabel;
             cardTransform.Translate(8 * Time.deltaTime, 0, 0);
         }
         else if (x < Screen.width * 0.25f && cardTransform.position.x > -_maxX)
         {
-            //choiceDescrioption.text = Defines.GameManager.currentCard.LeftLabel;
+            choiceDescrioption.text = Defines.GameManager.currentCard.LeftLabel;
             cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
         }
     }
@@ -106,6 +107,6 @@ public class ChoiceManager : MonoBehaviour
     private void UpdateCard()
     {
         mainDescription.text = Defines.GameManager.currentCard.Text;
-        icon.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(@"Sprites/zaborchik");
+        icon.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(@"Sprites/" + Defines.GameManager.currentCard.Icon);
     }
 }

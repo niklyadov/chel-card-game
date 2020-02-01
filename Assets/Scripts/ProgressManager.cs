@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class ProgressManager
 {
-    Progress[] progresses = new Progress[] {
-        
-        new Progress(),
-
-        new Progress(),
-
-        new Progress(),
-
-        new Progress()
-
-    };
+    public float[] progresses = new float[4];
 
     public void ApplyChanges(float[] changes)
     {
 
         for (int i = 0; i < changes.Length; i++)
         {
+
             if (i < progresses.Length)
-                progresses[i].AddValue = changes[i];
+                progresses[i] += changes[i];
         }
 
     }

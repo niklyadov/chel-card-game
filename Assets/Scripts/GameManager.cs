@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+public enum CardPosition
+{
+    OnLeft,
+    OnRight,
+    Passive
+}
+
 public class GameManager : MonoBehaviour
 {
     Deck deck = null;
-    ProgressManager progressManager;
+    public ProgressManager progressManager;
 
     public Card currentCard;
+    public CardPosition CardPos;
+    private bool GameMode;
 
     public GameManager()
     {
@@ -33,45 +42,34 @@ public class GameManager : MonoBehaviour
             Debug.Log(item.ToString()); ////// PRINT DECK
         }
         Debug.Log("-----------------------------");
-
-        UpdateCard(true);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A)) LeftChoise();
-        if (Input.GetKeyDown(KeyCode.D)) RightChoise();
-
+        if (CardPos != CardPosition.Passive)
+            ExecuteChoice();
     }
 
-    public void LeftChoise() 
+    private void ExecuteChoice()
     {
-        progressManager.ApplyChanges(currentCard.Left);
-        UpdateCard();
-    }
+        if (CardPos == CardPosition.OnLeft)
+            progressManager.ApplyChanges(currentCard.Left);
+        else
+            progressManager.ApplyChanges(currentCard.Right);
 
-    public void RightChoise()
-    {
-        progressManager.ApplyChanges(currentCard.Right);
-        UpdateCard(true);
-    }
+        //проверка на превышение параметров
 
-    public void UpdateCard(bool replace = true)
-    {
-        if (currentCard != null && replace || currentCard == null) 
-        {
+        if (GameMode)
             currentCard = deck.GetRandom();
-        }
 
-        Debug.Log(currentCard.ToString());
-        
+        CardPos = CardPosition.Passive;
     }
 
-    public void OnProgressChange(Progress progress, float value) 
-    {
-        foreach (var item in deck.CardList)
-        {
-            Debug.Log(" >> ."  + progress.ToString() + "  " + value); ////// PRINT DECK
-        }
-    }
+    //public void OnProgressChange(Progress progress, float value) 
+    //{
+    //    foreach (var item in deck.CardList)
+    //    {
+    //        Debug.Log(" >> ."  + progress.ToString() + "  " + value); ////// PRINT DECK
+    //    }
+    //}
 }
