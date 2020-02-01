@@ -7,6 +7,7 @@ public static class Defines
 {
     public static VisualManager VisManager;
     public static GameManager GameManager;
+    public static CardBehaviour CardBehaviour;
 
     public static string Path
     {

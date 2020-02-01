@@ -109,8 +109,9 @@ public class GameManager : MonoBehaviour
         return ok;
     }
 
-    private void Restart()
+    public void Restart()
     {
+        Debug.Log("Restart");
         Defines.GameManager.progressManager.progresses = new float[] { 50f, 30f, 50f, 50f };
     }
 
