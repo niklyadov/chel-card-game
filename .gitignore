@@ -1,7 +1,13 @@
 # Ignore everything
-*
+Library
+Library/*
+obj
+obj/*
+Packages
+Packages/*
+ProjectSettings
+ProjectSettings/*
+.vs
 
-# But not these files...
-!.gitignore
-!Assets
-!Assets/*
+*.csproj
+*.sln

@@ -8,7 +8,6 @@ public static class Defines
     public static string CardsDataPath;
     public static string WorkPath;
     public static string SpritesPath;
-    public static ProgressVisual progresVisual;
     public static VisualManager VisManager;
 
     public static GameManager GameManager;
