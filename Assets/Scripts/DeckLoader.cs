@@ -8,12 +8,12 @@ using UnityEngine;
 
 public static class DeckLoader
 {
-    public static Deck Load()
+    public static Deck Load(string path)
     {
-        if (!File.Exists(Defines.CardsDataPath))
+        if (!File.Exists(path))
             return null;
 
-        var reader = new StreamReader(Defines.CardsDataPath, Encoding.UTF8);
+        var reader = new StreamReader(path, Encoding.UTF8);
         var content = reader.ReadToEnd();
         reader.Close();
         return Deck.CreateFromJSON(content);

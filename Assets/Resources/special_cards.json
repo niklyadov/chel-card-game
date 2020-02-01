@@ -1,0 +1,16 @@
+{
+  "CardList": [
+    {
+      "Text": "Special card Special card Special card Special card",
+      "Icon": "Tsirk",
+      "LeftLabel": "Left",
+      "RightLabel": "Right"
+    },
+    {
+      "Text": "Special card Special card Special card Special card1231231232",
+      "Icon": "Belki",
+      "LeftLabel": "Left2",
+      "RightLabel": "Right2"
+    }
+  ]
+}

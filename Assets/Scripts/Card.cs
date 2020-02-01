@@ -3,15 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-enum Par
-{
-    Society,
-    Money,
-    Ecology,
-    Administration
-}
-*/
 
 [Serializable]
 public class Card
@@ -19,8 +10,8 @@ public class Card
     public string Text;
     public string Icon;
 
-    public float[] Left;
-    public float[] Right;
+    public float[] Left = new float[0];
+    public float[] Right = new float[0];
 
     public string LeftLabel;
     public string RightLabel;

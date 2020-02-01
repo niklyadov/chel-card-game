@@ -13,6 +13,7 @@ public enum CardPosition
 public class GameManager : MonoBehaviour
 {
     Deck deck = null;
+    Deck deckSpecial = null;
     public ProgressManager progressManager;
 
     public Card currentCard;
@@ -28,7 +29,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        deck = DeckLoader.Load();
+        deck = DeckLoader.Load(Defines.CardsDataPath);
+        deckSpecial = DeckLoader.Load(Defines.SpecialCardsDataPath);   //специальные карты
+
+        foreach (var item in deckSpecial.CardList)
+        {
+            Debug.Log(item.ToString());
+        }
+
         progressManager = new ProgressManager();
         CardPos = CardPosition.Passive;
         GameMode = true; //ПОТОМ ПОМЕНЯТЬ
@@ -39,11 +47,6 @@ public class GameManager : MonoBehaviour
         if (deck.CardList.Length == 0)
             throw new System.Exception("Error: empty deck");
 
-        foreach (var item in deck.CardList)
-        {
-            Debug.Log(item.ToString()); ////// PRINT DECK
-        }
-        Debug.Log("-----------------------------");
     }
 
     private void Update()
