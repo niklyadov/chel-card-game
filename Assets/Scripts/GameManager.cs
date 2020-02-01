@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     {
         deck = DeckLoader.Load();
         progressManager = new ProgressManager();
+        CardPos = CardPosition.Passive;
+        GameMode = true; //ПОТОМ ПОМЕНЯТЬ
 
         if (deck == null)
             throw new System.Exception("Error while load deck");
@@ -47,29 +49,30 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (CardPos != CardPosition.Passive)
-            ExecuteChoice();
+                ExecuteChoice();
     }
+
 
     private void ExecuteChoice()
     {
         if (CardPos == CardPosition.OnLeft)
+        {
+            Debug.Log("Left Choice");
             progressManager.ApplyChanges(currentCard.Left);
+        }
         else
+        {
+            Debug.Log("Right Choice");
             progressManager.ApplyChanges(currentCard.Right);
+        }
 
-        //проверка на превышение параметров
-
+        //добавить проверку на превышение параметров !!!
         if (GameMode)
             currentCard = deck.GetRandom();
 
+        Defines.VisManager.UpdateMainCard(currentCard.Icon, currentCard.Text);
         CardPos = CardPosition.Passive;
     }
 
-    //public void OnProgressChange(Progress progress, float value) 
-    //{
-    //    foreach (var item in deck.CardList)
-    //    {
-    //        Debug.Log(" >> ."  + progress.ToString() + "  " + value); ////// PRINT DECK
-    //    }
-    //}
+    //из сложного: добавить начало игры
 }
