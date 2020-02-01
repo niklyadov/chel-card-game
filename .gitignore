@@ -8,6 +8,8 @@ Packages/*
 ProjectSettings
 ProjectSettings/*
 .vs
+Logs
+Logs/*
 Temp
 Temp/*
 *.csproj
