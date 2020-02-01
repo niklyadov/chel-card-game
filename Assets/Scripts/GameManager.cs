@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         if (deck.CardList.Length == 0)
             throw new System.Exception("Error: empty deck");
         Restart();
+        currentCard = deckSpecial.CardList[0];
     }
 
     private void Update()
@@ -86,22 +87,22 @@ public class GameManager : MonoBehaviour
         var parametres = Defines.GameManager.progressManager.progresses;
         var ok = false;
 
-        if (parametres[0] < 0)
-            currentCard = deckSpecial.CardList[0];
-        else if (parametres[0] > 100)
-            currentCard = deckSpecial.CardList[0];
-        else if (parametres[1] < 0)
-            currentCard = deckSpecial.CardList[0];
-        else if (parametres[1] > 100)
-            currentCard = deckSpecial.CardList[0];
-        else if (parametres[2] < 0)
-            currentCard = deckSpecial.CardList[0];
-        else if (parametres[2] > 100)
-            currentCard = deckSpecial.CardList[0];
-        else if (parametres[3] < 0)
-            currentCard = deckSpecial.CardList[0];
-        else if (parametres[3] > 100)
-            currentCard = deckSpecial.CardList[0];
+        if (parametres[0] <= 0)
+            currentCard = deckSpecial.CardList[1];
+        else if (parametres[0] >= 100)
+            currentCard = deckSpecial.CardList[2];
+        else if (parametres[1] <= 0)
+            currentCard = deckSpecial.CardList[3];
+        else if (parametres[1] >= 100)
+            currentCard = deckSpecial.CardList[4];
+        else if (parametres[2] <= 0)
+            currentCard = deckSpecial.CardList[5];
+        else if (parametres[2] >= 100)
+            currentCard = deckSpecial.CardList[6];
+        else if (parametres[3] <= 0)
+            currentCard = deckSpecial.CardList[7];
+        else if (parametres[3] >= 100)
+            currentCard = deckSpecial.CardList[8];
         else ok = true;
 
         return ok;

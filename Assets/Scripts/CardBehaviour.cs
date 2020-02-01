@@ -49,8 +49,8 @@ public class CardBehaviour : MonoBehaviour
     {
         if (cardIsChanging) return;
 
-        //увеличение при нажатииddddddddd
-        cardTransform.localScale = cardTransform.localScale * 1.2f;
+        //увеличение при нажатии
+        cardTransform.localScale = cardTransform.localScale * 1.05f;
         mouseDn = true;
     }
 
@@ -69,14 +69,21 @@ public class CardBehaviour : MonoBehaviour
         if (x > Screen.width * 0.75f && cardTransform.position.x < _maxX)
         {
             if (!updated)
+            {
                 Defines.VisManager.UpdateDescription(Defines.GameManager.currentCard.RightLabel);
+                Defines.VisManager.UpdateInfliuences(Defines.GameManager.currentCard.Right);
+            }
+                
             cardTransform.Translate(8 * Time.deltaTime, 0, 0);
         }
         else if (x < Screen.width * 0.25f && cardTransform.position.x > -_maxX)
         {
             if (!updated)
+            {
                 Defines.VisManager.UpdateDescription(Defines.GameManager.currentCard.LeftLabel);
-            cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
+                Defines.VisManager.UpdateInfliuences(Defines.GameManager.currentCard.Left);
+            }
+                cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
         }
         updated = true;            
     }

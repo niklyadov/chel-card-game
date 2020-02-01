@@ -8,12 +8,11 @@ public class ProgressManager
 
     public void ApplyChanges(float[] changes)
     {
-
+        var rnd = new System.Random();
         for (int i = 0; i < changes.Length; i++)
         {
-
             if (i < progresses.Length)
-                progresses[i] += changes[i];
+                progresses[i] += (changes[i] == 0) ? 0 : rnd.Next(-5, 5);
         }
 
     }

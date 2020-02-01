@@ -19,6 +19,10 @@ public class VisualManager : MonoBehaviour
     [SerializeField]
     private Text[] parametres = new Text[4];
 
+    //влияние параметров
+    [SerializeField]
+    private GameObject[] influences = new GameObject[4];
+
     void Start()
     {
         Defines.VisManager = this;
@@ -47,6 +51,12 @@ public class VisualManager : MonoBehaviour
         var newParams = Defines.GameManager.progressManager.progresses;
         for (int i = 0; i < 4; i++)
             parametres[i].text = System.Math.Round(newParams[i]).ToString() + '%';
+    }
+
+    public void UpdateInfliuences(float[] influence)
+    {
+        for (int i = 0; i < influence.Length; i++)
+            influences[i].GetComponent<Image>().color = new Color(-influence[i] * 0.1f, influence[i] * 0.1f, 0.1f, System.Math.Abs(influence[i]) * 0.1f);
     }
 
     //добавить обновление процентиков
