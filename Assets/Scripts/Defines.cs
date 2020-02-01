@@ -13,7 +13,7 @@ public static class Defines
 
     static Defines()
     {
-        WorkPath = Path.Combine("Assets", "Data");
+        WorkPath = Path.Combine("Assets", "Resources");
         CardsDataPath = Path.Combine(WorkPath, "cards.json");
         SpritesPath = Path.Combine(Defines.WorkPath, "Sprites");
     }

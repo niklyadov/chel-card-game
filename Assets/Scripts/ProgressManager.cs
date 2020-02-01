@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class ProgressManager
 {
-    Progress[] progresses = new Progress[4];
+    Progress[] progresses = new Progress[] {
+        
+        new Progress(),
+
+        new Progress(),
+
+        new Progress(),
+
+        new Progress()
+
+    };
 
     public void ApplyChanges(float[] changes)
     {

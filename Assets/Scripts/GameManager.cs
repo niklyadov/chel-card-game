@@ -5,30 +5,36 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    Deck deck;
+    Deck deck = null;
     ProgressManager progressManager;
 
-    Card currentCard;
+    public Card currentCard;
 
     public GameManager()
     {
         Defines.GameManager = this;
-        deck = DeckLoader.Load();
-        progressManager = new ProgressManager();
-
-        if (deck.CardList.Length == 0)
-            throw new System.Exception("Error: empty deck");
+        
 
     }
 
     private void Start()
     {
+        deck = DeckLoader.Load();
+        progressManager = new ProgressManager();
+
+        if (deck == null)
+            throw new System.Exception("Error while load deck");
+
+        if (deck.CardList.Length == 0)
+            throw new System.Exception("Error: empty deck");
 
         foreach (var item in deck.CardList)
         {
             Debug.Log(item.ToString()); ////// PRINT DECK
         }
         Debug.Log("-----------------------------");
+
+        UpdateCard(true);
     }
 
     private void Update()
@@ -48,6 +54,7 @@ public class GameManager : MonoBehaviour
         }
 
         progressManager.ApplyChanges(currentCard.Left);
+        currentCard = null;
     }
 
     public void RightChoise()
@@ -59,7 +66,7 @@ public class GameManager : MonoBehaviour
         }
 
         progressManager.ApplyChanges(currentCard.Right);
-
+        currentCard = null;
     }
 
     public void UpdateCard(bool replace = true)
@@ -68,6 +75,8 @@ public class GameManager : MonoBehaviour
         {
             currentCard = deck.GetRandom();
         }
+
+        Debug.Log(currentCard.ToString());
         
     }
 
