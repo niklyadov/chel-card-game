@@ -46,27 +46,14 @@ public class GameManager : MonoBehaviour
 
     public void LeftChoise() 
     {
-
-        if (currentCard == null)
-        {
-            UpdateCard();
-            return;
-        }
-
         progressManager.ApplyChanges(currentCard.Left);
-        currentCard = null;
+        UpdateCard();
     }
 
     public void RightChoise()
     {
-        if (currentCard == null)
-        {
-            UpdateCard();
-            return;
-        }
-
         progressManager.ApplyChanges(currentCard.Right);
-        currentCard = null;
+        UpdateCard(true);
     }
 
     public void UpdateCard(bool replace = true)
