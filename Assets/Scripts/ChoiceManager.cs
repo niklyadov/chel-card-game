@@ -39,11 +39,15 @@ public class ChoiceManager : MonoBehaviour
                 cardIsChanging = false;
                 cardTransform.position = basicPos;
                 UpdateCard();
+                if (cardTransform.position.x < 0)
+                    Defines.GameManager.LeftChoise();
+                else
+                    Defines.GameManager.RightChoise();
             }
             return;
         }
 
-        if (x >= Screen.width * 0.25f && x <= Screen.width * 0.75f) //возвращение карты на середину
+        if (x >= Screen.width * 0.2f && x <= Screen.width * 0.78f) //возвращение карты на середину
             Center();
         else if (mouseDn) //Сдвиг карты влево или вправо        
             FollowFinger(x);
@@ -70,9 +74,15 @@ public class ChoiceManager : MonoBehaviour
     private void FollowFinger(float x)
     {
         if (x > Screen.width * 0.75f && cardTransform.position.x < _maxX)
+        {
+            //choiceDescrioption.text = Defines.GameManager.currentCard.RightLabel;
             cardTransform.Translate(8 * Time.deltaTime, 0, 0);
+        }
         else if (x < Screen.width * 0.25f && cardTransform.position.x > -_maxX)
+        {
+            //choiceDescrioption.text = Defines.GameManager.currentCard.LeftLabel;
             cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
+        }
     }
 
     private void Disappear()
@@ -95,7 +105,7 @@ public class ChoiceManager : MonoBehaviour
 
     private void UpdateCard()
     {
-        mainDescription.text = "main descr";
+        mainDescription.text = Defines.GameManager.currentCard.Text;
         icon.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(@"Sprites/zaborchik");
     }
 }
