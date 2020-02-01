@@ -23,12 +23,19 @@ public class GameManager : MonoBehaviour
     public GameManager()
     {
         Defines.GameManager = this;
-        
 
     }
 
     private void Start()
     {
+        //////ЭТУ ЖЕСТЬ НАДО КАК-ТО ИСПРАВИТЬ
+        Defines.WorkPath = Path.Combine(Defines.Path, "Resources");
+        Defines.CardsDataPath = Path.Combine(Defines.WorkPath, "cards.json");
+        Defines.SpecialCardsDataPath = Path.Combine(Defines.WorkPath, "special_cards.json");
+        Defines.SpritesPath = Path.Combine(Defines.WorkPath, "Sprites");
+
+        Debug.Log(Defines.CardsDataPath);
+
         deck = DeckLoader.Load(Defines.CardsDataPath);
         deckSpecial = DeckLoader.Load(Defines.SpecialCardsDataPath);   //специальные карты
 
