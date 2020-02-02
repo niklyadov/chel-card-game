@@ -23,6 +23,10 @@ public class VisualManager : MonoBehaviour
     [SerializeField]
     private GameObject[] influences = new GameObject[4];
 
+    // Панелька помощи
+    [SerializeField]
+    private GameObject HelpPanel;
+
     void Start()
     {
         Defines.VisManager = this;
@@ -30,7 +34,21 @@ public class VisualManager : MonoBehaviour
 
     void Update()
     {
-        
+
+    }
+
+    public void ShowHelpMenu()
+    {
+        HelpPanel.SetActive(true);
+        ///// TODO: приостановить игру на паузу
+        Defines.CardBehaviour.SetPause(true);
+    }
+
+    public void CloseHelpMenu()
+    {
+        HelpPanel.SetActive(false);
+        ///// TODO: убрать игру с паузы
+        Defines.CardBehaviour.SetPause(false);
     }
 
     public void UpdateMainCard(string sprite, string description)
@@ -56,7 +74,7 @@ public class VisualManager : MonoBehaviour
     public void UpdateInfliuences(float[] influence)
     {
         for (int i = 0; i < influence.Length; i++)
-            influences[i].GetComponent<Image>().color = new Color(1f, 1f, 1f, System.Math.Abs(influence[i]) * 0.05f);
+            influences[i].GetComponent<Image>().color = new Color(1, 1, 1, System.Math.Abs(influence[i]) * 0.1f);
     }
 
     //добавить обновление процентиков

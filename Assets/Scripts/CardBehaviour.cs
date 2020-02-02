@@ -15,9 +15,17 @@ public class CardBehaviour : MonoBehaviour
 
     void Start()
     {
+        Defines.CardBehaviour = this;
         cardTransform = this.gameObject.GetComponent<Transform>();
         basicScale = cardTransform.localScale;
         basicPos = cardTransform.position;
+    }
+
+    public void SetPause(bool to)
+    {
+        Debug.Log("Pause = " + to);
+        BoxCollider2D collider2D = gameObject.GetComponent<BoxCollider2D>();
+        collider2D.enabled = !to;
     }
 
     void Update()
@@ -52,12 +60,14 @@ public class CardBehaviour : MonoBehaviour
 
         mouseDn = true;
         //увеличение при нажатии
-        cardTransform.localScale = basicScale * 1.05f;        
+        cardTransform.localScale = cardTransform.localScale * 1.05f;        
     }
 
     private void OnMouseUp()
     {
         mouseDn = false;
+        cardTransform.localScale = cardTransform.localScale * 0.96f;
+
 
         if (Input.mousePosition.x > Screen.width * 0.8f || Input.mousePosition.x < Screen.width * 0.2f)
             cardIsChanging = true;

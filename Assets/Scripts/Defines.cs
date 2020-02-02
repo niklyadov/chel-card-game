@@ -5,19 +5,25 @@ using System.IO;
 
 public static class Defines
 {
-    public static string CardsDataPath;
-    public static string SpecialCardsDataPath;
-    public static string WorkPath;
-    public static string SpritesPath;
     public static VisualManager VisManager;
-
     public static GameManager GameManager;
+    public static CardBehaviour CardBehaviour;
 
-    static Defines()
+    public static string Path
     {
-        WorkPath = Path.Combine("Assets", "Resources");
-        CardsDataPath = Path.Combine(WorkPath, "cards.json");
-        SpecialCardsDataPath = Path.Combine(WorkPath, "special_cards.json");
-        SpritesPath = Path.Combine(WorkPath, "Sprites");
+        get
+        {
+            switch (Application.platform)
+            {
+                case RuntimePlatform.IPhonePlayer:
+                    return System.IO.Path.Combine(Application.persistentDataPath, "Assets");
+
+                case RuntimePlatform.Android:
+                    return System.IO.Path.Combine(Application.temporaryCachePath, "Assets");
+
+                default:
+                    return System.IO.Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Assets");
+            }
+        }
     }
 }
