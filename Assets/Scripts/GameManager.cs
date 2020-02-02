@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
         deck = Deck.CreateFromJSON(Resources.Load<TextAsset>("cards").text);
 
-        deckSpecial = Deck.CreateFromJSON(Resources.Load<TextAsset>("cards").text);
+        deckSpecial = Deck.CreateFromJSON(Resources.Load<TextAsset>("special_cards").text);
 
         foreach (var item in deckSpecial.CardList)
         {
