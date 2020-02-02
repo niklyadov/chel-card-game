@@ -10,7 +10,7 @@ public class CardBehaviour : MonoBehaviour
 
     private bool mouseDn;
     private bool cardIsChanging;
-    private float _maxX = 3.5f;
+    private readonly float maxX = 3f;
     private bool updated = false;
 
     void Start()
@@ -31,6 +31,7 @@ public class CardBehaviour : MonoBehaviour
             {
                 cardIsChanging = false;
                 cardTransform.position = basicPos;
+                cardTransform.localScale = basicScale;
                 if (cardTransform.position.x < 0)
                     Defines.GameManager.CardPos = CardPosition.OnLeft;
                 else
@@ -49,15 +50,13 @@ public class CardBehaviour : MonoBehaviour
     {
         if (cardIsChanging) return;
 
-        //увеличение при нажатии
-        cardTransform.localScale = cardTransform.localScale * 1.05f;
         mouseDn = true;
+        //увеличение при нажатии
+        cardTransform.localScale = basicScale * 1.05f;        
     }
 
     private void OnMouseUp()
     {
-        //уменьшение при нажатии
-        cardTransform.localScale = basicScale;
         mouseDn = false;
 
         if (Input.mousePosition.x > Screen.width * 0.8f || Input.mousePosition.x < Screen.width * 0.2f)
@@ -66,17 +65,17 @@ public class CardBehaviour : MonoBehaviour
 
     private void FollowFinger(float x)
     {        
-        if (x > Screen.width * 0.75f && cardTransform.position.x < _maxX)
+        if (x > Screen.width * 0.75f && cardTransform.position.x < maxX)
         {
             if (!updated)
             {
                 Defines.VisManager.UpdateDescription(Defines.GameManager.currentCard.RightLabel);
                 Defines.VisManager.UpdateInfliuences(Defines.GameManager.currentCard.Right);
             }
-                
+            
             cardTransform.Translate(8 * Time.deltaTime, 0, 0);
         }
-        else if (x < Screen.width * 0.25f && cardTransform.position.x > -_maxX)
+        else if (x < Screen.width * 0.25f && cardTransform.position.x > -maxX)
         {
             if (!updated)
             {
@@ -85,7 +84,11 @@ public class CardBehaviour : MonoBehaviour
             }
                 cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
         }
-        updated = true;            
+        updated = true;
+
+        //уменьшение
+        if (cardTransform.localScale.x > 0.9 * basicScale.x)
+            cardTransform.localScale = cardTransform.localScale * 0.99f;
     }
 
     private void Disappear()
@@ -105,5 +108,9 @@ public class CardBehaviour : MonoBehaviour
             cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
         else
             cardTransform.position = basicPos;
+
+        //увеличение
+        if (cardTransform.localScale.x < basicScale.x * 1.05f)
+            cardTransform.localScale = cardTransform.localScale * 1.01f;
     }
 }
