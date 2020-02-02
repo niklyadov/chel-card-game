@@ -12,17 +12,19 @@ public class CardBehaviour : MonoBehaviour
     private bool cardIsChanging;
     private readonly float maxX = 3f;
     private bool updated = false;
-
+    public AudioSource AudioSource;
+    public AudioClip Clip;
     void Start()
     {
         Defines.CardBehaviour = this;
-        cardTransform = this.gameObject.GetComponent<Transform>();
+        cardTransform = gameObject.GetComponent<Transform>();
         basicScale = cardTransform.localScale;
         basicPos = cardTransform.position;
     }
 
     public void SetPause(bool to)
     {
+
         Debug.Log("Pause = " + to);
         BoxCollider2D collider2D = gameObject.GetComponent<BoxCollider2D>();
         collider2D.enabled = !to;
@@ -31,9 +33,11 @@ public class CardBehaviour : MonoBehaviour
     void Update()
     {
         var x = Input.mousePosition.x;
+        AudioSource = gameObject.GetComponent<AudioSource>();
 
         if (cardIsChanging)
         {
+            AudioSource.Play();
             Disappear();
             if (cardTransform.position.x < -5 || cardTransform.position.x > 5)
             {

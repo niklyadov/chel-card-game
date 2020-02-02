@@ -12,7 +12,7 @@ public class ProgressManager
         for (int i = 0; i < changes.Length; i++)
         {
             if (i < progresses.Length)
-                progresses[i] += (changes[i] == 0) ? 0 : rnd.Next(-5, 5);
+                progresses[i] += (changes[i] == 0) ? 0 : rnd.Next(-5, 5) + changes[i];
         }
 
     }
