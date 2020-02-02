@@ -10,7 +10,7 @@ public class CardBehaviour : MonoBehaviour
 
     private bool mouseDn;
     private bool cardIsChanging;
-    private float _maxX = 3.5f;
+    private float _maxX = 3.1f;
     private bool updated = false;
 
     void Start()
