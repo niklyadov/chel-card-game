@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
         //добавить проверку на превышение параметров !!!
         if (!CheckParameterNormal())
         {
+            //Defines.VisManager.UpdateParametres();
             Restart();
         }
         else
@@ -115,6 +116,13 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Restart");
         Defines.GameManager.progressManager.progresses = new float[] { 50f, 30f, 50f, 50f };
+    }
+
+    public void RestartBtn()
+    {
+        Debug.Log("Restart");
+        Defines.GameManager.progressManager.progresses = new float[] { 50f, 30f, 50f, 50f };
+        Defines.VisManager.UpdateParametres();
     }
 
     //из сложного: добавить начало игры
