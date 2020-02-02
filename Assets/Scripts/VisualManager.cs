@@ -56,7 +56,7 @@ public class VisualManager : MonoBehaviour
     public void UpdateInfliuences(float[] influence)
     {
         for (int i = 0; i < influence.Length; i++)
-            influences[i].GetComponent<Image>().color = new Color(-influence[i] * 0.1f, influence[i] * 0.1f, 0.1f, System.Math.Abs(influence[i]) * 0.1f);
+            influences[i].GetComponent<Image>().color = new Color(1f, 1f, 1f, System.Math.Abs(influence[i]) * 0.05f);
     }
 
     //добавить обновление процентиков
