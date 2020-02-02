@@ -23,14 +23,15 @@ public class GameManager : MonoBehaviour
     public GameManager()
     {
         Defines.GameManager = this;
-        
 
     }
 
     private void Start()
     {
-        deck = DeckLoader.Load(Defines.CardsDataPath);
-        deckSpecial = DeckLoader.Load(Defines.SpecialCardsDataPath);   //специальные карты
+
+        deck = Deck.CreateFromJSON(Resources.Load<TextAsset>("cards").text);
+
+        deckSpecial = Deck.CreateFromJSON(Resources.Load<TextAsset>("special_cards").text);
 
         foreach (var item in deckSpecial.CardList)
         {
@@ -108,8 +109,9 @@ public class GameManager : MonoBehaviour
         return ok;
     }
 
-    private void Restart()
+    public void Restart()
     {
+        Debug.Log("Restart");
         Defines.GameManager.progressManager.progresses = new float[] { 50f, 30f, 50f, 50f };
     }
 
