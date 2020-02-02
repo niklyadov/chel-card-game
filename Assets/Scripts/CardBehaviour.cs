@@ -37,7 +37,6 @@ public class CardBehaviour : MonoBehaviour
 
         if (cardIsChanging)
         {
-            AudioSource.Play();
             Disappear();
             if (cardTransform.position.x < -5 || cardTransform.position.x > 5)
             {

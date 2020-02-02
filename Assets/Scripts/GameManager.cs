@@ -60,6 +60,8 @@ public class GameManager : MonoBehaviour
 
     private void ExecuteChoice()
     {
+        Defines.CardBehaviour.AudioSource.PlayOneShot(Defines.CardBehaviour.Clip);
+
         if (CardPos == CardPosition.OnLeft)
         {
             Debug.Log("Left Choice");
