@@ -13,7 +13,7 @@ public class VisualManager : MonoBehaviour
 
     //описание выбора
     [SerializeField]
-    private Text choiceDescrioption;
+    private Text choiceDescription;
 
     //показания параметров
     [SerializeField]
@@ -53,7 +53,7 @@ public class VisualManager : MonoBehaviour
 
     public void UpdateDescription(string description)
     {
-        choiceDescrioption.text = description;
+        choiceDescription.text = description;
         Debug.Log("description Updated " + description);
     }
 

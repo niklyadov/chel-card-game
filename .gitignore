@@ -18,3 +18,4 @@ Temp/*
 .vscode
 *.sublime-project
 *.sublime-workspace
+Assets/Scripts/.DS_Store
