@@ -32,22 +32,15 @@ public class VisualManager : MonoBehaviour
         Defines.VisManager = this;
     }
 
-    void Update()
-    {
-
-    }
-
     public void ShowHelpMenu()
     {
         HelpPanel.SetActive(true);
-        ///// TODO: приостановить игру на паузу
         Defines.CardBehaviour.SetPause(true);
     }
 
     public void CloseHelpMenu()
     {
         HelpPanel.SetActive(false);
-        ///// TODO: убрать игру с паузы
         Defines.CardBehaviour.SetPause(false);
     }
 
@@ -76,6 +69,4 @@ public class VisualManager : MonoBehaviour
         for (int i = 0; i < influence.Length; i++)
             influences[i].GetComponent<Image>().color = new Color(1, 1, 1, System.Math.Abs(influence[i]) * 0.1f);
     }
-
-    //добавить обновление процентиков
 }

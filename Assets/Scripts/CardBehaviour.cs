@@ -12,28 +12,24 @@ public class CardBehaviour : MonoBehaviour
     private bool cardIsChanging;
     private readonly float maxX = 3f;
     private bool updated = false;
-    public AudioSource AudioSource;
-    public AudioClip Clip;
+
+	public AudioClip Clip;
+	public AudioSource AudioSource;
+
     void Start()
     {
         Defines.CardBehaviour = this;
+
         cardTransform = gameObject.GetComponent<Transform>();
-        basicScale = cardTransform.localScale;
+		AudioSource = gameObject.GetComponent<AudioSource>();
+
+		basicScale = cardTransform.localScale;
         basicPos = cardTransform.position;
-    }
-
-    public void SetPause(bool to)
-    {
-
-        Debug.Log("Pause = " + to);
-        BoxCollider2D collider2D = gameObject.GetComponent<BoxCollider2D>();
-        collider2D.enabled = !to;
     }
 
     void Update()
     {
         var x = Input.mousePosition.x;
-        AudioSource = gameObject.GetComponent<AudioSource>();
 
         if (cardIsChanging)
         {
@@ -41,13 +37,20 @@ public class CardBehaviour : MonoBehaviour
             if (cardTransform.position.x < -5 || cardTransform.position.x > 5)
             {
                 cardIsChanging = false;
-                cardTransform.position = basicPos;
-                cardTransform.localScale = basicScale;
-                if (cardTransform.position.x < 0)
-                    Defines.GameManager.CardPos = CardPosition.OnLeft;
-                else
-                    Defines.GameManager.CardPos = CardPosition.OnRight;
-            }
+
+				if (cardTransform.position.x < 0)
+				{
+					Defines.GameManager.CardPos = CardPosition.OnLeft;
+				}
+				else
+				{
+					Defines.GameManager.CardPos = CardPosition.OnRight;
+				}
+                    
+
+				cardTransform.position = basicPos;
+				cardTransform.localScale = basicScale;
+			}
             return;
         }
 
@@ -57,7 +60,7 @@ public class CardBehaviour : MonoBehaviour
             FollowFinger(x);
     }
 
-    private void OnMouseDown()
+    void OnMouseDown()
     {
         if (cardIsChanging) return;
 
@@ -66,7 +69,7 @@ public class CardBehaviour : MonoBehaviour
         cardTransform.localScale = cardTransform.localScale * 1.05f;        
     }
 
-    private void OnMouseUp()
+    void OnMouseUp()
     {
         mouseDn = false;
         cardTransform.localScale = cardTransform.localScale * 0.96f;
@@ -76,7 +79,7 @@ public class CardBehaviour : MonoBehaviour
             cardIsChanging = true;
     }
 
-    private void FollowFinger(float x)
+    void FollowFinger(float x)
     {        
         if (x > Screen.width * 0.75f && cardTransform.position.x < maxX)
         {
@@ -95,7 +98,8 @@ public class CardBehaviour : MonoBehaviour
                 Defines.VisManager.UpdateDescription(Defines.GameManager.currentCard.LeftLabel);
                 Defines.VisManager.UpdateInfliuences(Defines.GameManager.currentCard.Left);
             }
-                cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
+
+            cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
         }
         updated = true;
 
@@ -104,7 +108,7 @@ public class CardBehaviour : MonoBehaviour
             cardTransform.localScale = cardTransform.localScale * 0.99f;
     }
 
-    private void Disappear()
+    void Disappear()
     {
         if (cardTransform.position.x >= 0)
             cardTransform.Translate(8 * Time.deltaTime, 0, 0);
@@ -112,7 +116,7 @@ public class CardBehaviour : MonoBehaviour
             cardTransform.Translate(-8 * Time.deltaTime, 0, 0);
     }
 
-    private void Center()
+    void Center()
     {
         updated = false;
         if (cardTransform.position.x < -0.1)
@@ -126,4 +130,11 @@ public class CardBehaviour : MonoBehaviour
         if (cardTransform.localScale.x < basicScale.x * 1.05f)
             cardTransform.localScale = cardTransform.localScale * 1.01f;
     }
+
+	public void SetPause(bool to)
+	{
+		Debug.Log("Pause = " + to);
+		BoxCollider2D collider2D = gameObject.GetComponent<BoxCollider2D>();
+		collider2D.enabled = !to;
+	}
 }
