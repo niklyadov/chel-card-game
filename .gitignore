@@ -14,8 +14,7 @@ Temp
 Temp/*
 *.csproj
 *.sln
-.DS_Store
+*.DS_Store
 .vscode
 *.sublime-project
 *.sublime-workspace
-Assets/Scripts/.DS_Store
