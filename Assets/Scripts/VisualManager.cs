@@ -57,9 +57,8 @@ public class VisualManager : MonoBehaviour
         Debug.Log("description Updated " + description);
     }
 
-    public void UpdateParametres()
+    public void UpdateParametres(float[] newParams)
     {
-        var newParams = Defines.GameManager.progressManager.progresses;
         for (int i = 0; i < 4; i++)
             parametres[i].CurrentValue = newParams[i];
     }
@@ -67,9 +66,6 @@ public class VisualManager : MonoBehaviour
     public void UpdateInfliuences(float[] influence)
     {
         for (int i = 0; i < influence.Length; i++)
-        {
-            Color color = influences[i].GetComponent<Image>().color;
-            color.a = System.Math.Abs(influence[i]) * 0.1f;
-        }
+            influences[i].GetComponent<Image>().color = new Color(1, 1, 1, System.Math.Abs(influence[i]) * 0.1f);
     }
 }

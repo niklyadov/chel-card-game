@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum CardPosition
 {
@@ -58,7 +55,7 @@ public class GameManager : MonoBehaviour
         else
             progressManager.ApplyChanges(currentCard.Right);
 
-        Defines.VisManager.UpdateParametres();
+        Defines.VisManager.UpdateParametres(Defines.GameManager.progressManager.progresses);
 
         if (!CheckParametersNormal(Defines.GameManager.progressManager.progresses)) Restart();
         else currentCard = deck.GetRandom();
@@ -94,13 +91,12 @@ public class GameManager : MonoBehaviour
 
     private void Restart()
     {
-        Debug.Log("Restart");
         Defines.GameManager.progressManager.progresses = new float[] { 50f, 30f, 50f, 50f };
     }
 
     public void RestartBtn()
     {
         Restart();
-        Defines.VisManager.UpdateParametres();
+        Defines.VisManager.UpdateParametres(Defines.GameManager.progressManager.progresses);
     }
 }
