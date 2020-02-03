@@ -15,10 +15,8 @@ public class GameManager : MonoBehaviour
     Deck deck = null;
     Deck deckSpecial = null;
     public ProgressManager progressManager;
-
     public Card currentCard;
     public CardPosition CardPos;
-    private bool GameMode;
 
     public GameManager()
     {
@@ -28,25 +26,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
         deck = Deck.CreateFromJSON(Resources.Load<TextAsset>("cards").text);
-
         deckSpecial = Deck.CreateFromJSON(Resources.Load<TextAsset>("special_cards").text);
-
-        foreach (var item in deckSpecial.CardList)
-        {
-            Debug.Log(item.ToString());
-        }
 
         progressManager = new ProgressManager();
         CardPos = CardPosition.Passive;
-        GameMode = true; //ПОТОМ ПОМЕНЯТЬ
 
-        if (deck == null)
+        if (deck == null || deckSpecial == null)
             throw new System.Exception("Error while load deck");
 
-        if (deck.CardList.Length == 0)
+        if (deck.CardList.Length == 0 || deckSpecial.CardList.Length == 0)
             throw new System.Exception("Error: empty deck");
+
         Restart();
         currentCard = deckSpecial.CardList[0];
     }
@@ -63,32 +54,21 @@ public class GameManager : MonoBehaviour
         Defines.CardBehaviour.AudioSource.PlayOneShot(Defines.CardBehaviour.Clip);
 
         if (CardPos == CardPosition.OnLeft)
-        {
-            Debug.Log("Left Choice");
             progressManager.ApplyChanges(currentCard.Left);
-        }
         else
-        {
-            Debug.Log("Right Choice");
             progressManager.ApplyChanges(currentCard.Right);
-        }
+
         Defines.VisManager.UpdateParametres();
 
-        //добавить проверку на превышение параметров !!!
-        if (!CheckParameterNormal())
-        {
-            //Defines.VisManager.UpdateParametres();
-            Restart();
-        }
-        else
-            currentCard = deck.GetRandom();
+        if (!CheckParametersNormal(Defines.GameManager.progressManager.progresses)) Restart();
+        else currentCard = deck.GetRandom();
+
         Defines.VisManager.UpdateMainCard(currentCard.Icon, currentCard.Text);
         CardPos = CardPosition.Passive;
     }
 
-    private bool CheckParameterNormal()
+    private bool CheckParametersNormal(float[] parametres)
     {
-        var parametres = Defines.GameManager.progressManager.progresses;
         var ok = false;
 
         if (parametres[0] <= 0)
@@ -112,7 +92,7 @@ public class GameManager : MonoBehaviour
         return ok;
     }
 
-    public void Restart()
+    private void Restart()
     {
         Debug.Log("Restart");
         Defines.GameManager.progressManager.progresses = new float[] { 50f, 30f, 50f, 50f };
@@ -120,10 +100,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartBtn()
     {
-        Debug.Log("Restart");
-        Defines.GameManager.progressManager.progresses = new float[] { 50f, 30f, 50f, 50f };
+        Restart();
         Defines.VisManager.UpdateParametres();
     }
-
-    //из сложного: добавить начало игры
 }

@@ -17,7 +17,7 @@ public class VisualManager : MonoBehaviour
 
     //показания параметров
     [SerializeField]
-    private Text[] parametres = new Text[4];
+    private ValueBar[] parametres;
 
     //влияние параметров
     [SerializeField]
@@ -61,12 +61,15 @@ public class VisualManager : MonoBehaviour
     {
         var newParams = Defines.GameManager.progressManager.progresses;
         for (int i = 0; i < 4; i++)
-            parametres[i].text = System.Math.Round(newParams[i]).ToString() + '%';
+            parametres[i].CurrentValue = newParams[i];
     }
 
     public void UpdateInfliuences(float[] influence)
     {
         for (int i = 0; i < influence.Length; i++)
-            influences[i].GetComponent<Image>().color = new Color(1, 1, 1, System.Math.Abs(influence[i]) * 0.1f);
+        {
+            Color color = influences[i].GetComponent<Image>().color;
+            color.a = System.Math.Abs(influence[i]) * 0.1f;
+        }
     }
 }
