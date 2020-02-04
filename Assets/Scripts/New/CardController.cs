@@ -15,7 +15,10 @@ public class CardController : MonoBehaviour
     private CardPosition cardPosition;
 
     private (float top, float bottom) cardLimits = (0.50f, 0.40f);
-
+    private bool fadeOut;
+    private float fadeOutDeltatime;
+    private int fadeOutDurationTime = 2;
+    private float fadeOutMinSizePercentage = 0.75f;
 
     private void Awake()
     {
@@ -32,6 +35,32 @@ public class CardController : MonoBehaviour
 
     private void Update()
     {
+        // запущена анимация уменьшения размеров карты
+        if (fadeOut)
+        {
+            // если карта уже 
+            if (cardPosition == CardPosition.Passive)
+            {
+                fadeOutDeltatime = fadeOutDurationTime; // Зануляем счетчик
+                fadeOut = false;
+            } else
+            {
+
+                fadeOutDeltatime -= Time.deltaTime;
+
+                // уменьшаем до определенного процента (задан в fadeOutminSizePercentage)
+                if (fadeOutDeltatime < fadeOutDurationTime / (fadeOutMinSizePercentage * fadeOutDurationTime))
+                {
+                    UpdateCard();
+                    ChangeCardPosition(CardPosition.Passive);
+                    fadeOutDeltatime = fadeOutDurationTime; // Зануляем счетчик
+                    fadeOut = false; // остановим анимацию
+                }
+            }
+            //размеры карты зависят от текущего значения счетчика
+            rectTransform.localScale = new Vector3(fadeOutDeltatime / fadeOutDurationTime, fadeOutDeltatime / fadeOutDurationTime);
+        }
+
         if (Input.GetKey(KeyCode.Mouse0))
         {
             if (CheckMouse(raycaster) || cardPosition != CardPosition.Passive)
@@ -52,6 +81,7 @@ public class CardController : MonoBehaviour
                         new Vector3(rectTransform.position.x, Screen.height * cardLimits.bottom);
                 }
 
+                // изменение позиции карты в зависимости от положения
                 if (rectTransform.position.x <= 50)  // слева с отступом
                 {
                     ChangeCardPosition(CardPosition.OnLeft); // говорим что слева
@@ -73,8 +103,11 @@ public class CardController : MonoBehaviour
         }
         else if (cardPosition != CardPosition.Passive)
         {
-            /////
-            /// выбор, смена карты
+            if (!fadeOut)
+            {
+                fadeOut = true;
+                fadeOutDeltatime = fadeOutDurationTime; // Зануляем счетчик
+            }
         }
 
         if (cardPosition == CardPosition.OnLeft)
@@ -97,6 +130,8 @@ public class CardController : MonoBehaviour
         if (pos == cardPosition) // значение не поменялось
             return;
 
+        Debug.Log("Change state to: " +  pos.ToString());
+
         cardPosition = pos; // меняем значение
 
         //// потом
@@ -105,8 +140,13 @@ public class CardController : MonoBehaviour
 
     }
 
+    private void UpdateCard()
+    {
+        Debug.Log("----- Change card -----");
+    }
+
     /// <summary>
-    /// Проверить что мышка над картой
+    /// Проверить что мышка над обьектом
     /// </summary>
     /// <param name="ray">GraphicRaycaster</param>
     /// <returns>true/false в зависимости от положения мыши</returns>

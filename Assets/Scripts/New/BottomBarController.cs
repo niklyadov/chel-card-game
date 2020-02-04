@@ -6,25 +6,24 @@ using UnityEngine.EventSystems;
 
 public class BottomBarController : MonoBehaviour
 {
-
+    public CardController cardController;
     private GraphicRaycaster raycaster;
     private Vector3 temporaryPos;
-    public CardController cardController;
     private RectTransform rectTransform;
+    [SerializeField]
     private bool hidden = true;
 
     private void Awake()
     {
-        raycaster = gameObject.GetComponentInParent<GraphicRaycaster>();
+        raycaster = GetComponentInParent<GraphicRaycaster>();
+        rectTransform = GetComponentInParent<RectTransform>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         temporaryPos = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Mouse0) && CheckMouse(raycaster))
@@ -42,7 +41,7 @@ public class BottomBarController : MonoBehaviour
         }
         else
         {
-            if (transform.position.y + GetComponent<RectTransform>().sizeDelta.y / 2 > Screen.height * 0.9f)
+            if (transform.position.y + rectTransform.sizeDelta.y / 2 > Screen.height * 0.9f)
             {
 
                 transform.position = Vector3.Lerp(transform.position,
@@ -51,7 +50,6 @@ public class BottomBarController : MonoBehaviour
             }
             else
             {
-
                 if (hidden)
                     return;
 
@@ -67,7 +65,7 @@ public class BottomBarController : MonoBehaviour
     }
 
     /// <summary>
-    /// Проверить что мышка над картой
+    /// Проверить что мышка над обьектом
     /// </summary>
     /// <param name="ray">GraphicRaycaster</param>
     /// <returns>true/false в зависимости от положения мыши</returns>

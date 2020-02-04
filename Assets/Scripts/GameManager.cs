@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public GameManager()
     {
         Defines.GameManager = this;
-
     }
 
     private void Start()
