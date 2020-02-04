@@ -16,3 +16,14 @@ Temp/*
 .vscode
 *.sublime-project
 *.sublime-workspace
+.gradle/
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+crashlytics-build.properties
+ExportedObj/
+.consulo/
+/[Mm]emoryCaptures/
+/[Bb]uild/
+/[Bb]uilds/
