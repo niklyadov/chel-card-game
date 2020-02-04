@@ -1,12 +1,5 @@
 ﻿using UnityEngine;
 
-public enum CardPosition
-{
-    OnLeft,
-    OnRight,
-    Passive
-}
-
 public class GameManager : MonoBehaviour
 {
     Deck deck = null;

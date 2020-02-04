@@ -134,15 +134,17 @@ public class CardController : MonoBehaviour
 
         cardPosition = pos; // меняем значение
 
-        //// потом
-        ///  переключатели текста и т.д
-
+        //вызываем делегат при изменении позиции
+        Statics.GameController.OnChangePosition(cardPosition);
 
     }
 
     private void UpdateCard()
     {
         Debug.Log("----- Change card -----");
+
+        // вызываем делегат при изменении обновлении карты
+        Statics.GameController.OnUpdateCard(cardPosition);
     }
 
     /// <summary>
@@ -163,5 +165,4 @@ public class CardController : MonoBehaviour
 
         return false;
     }
-
 }

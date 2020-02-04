@@ -19,12 +19,12 @@ public class BottomBarController : MonoBehaviour
         rectTransform = GetComponentInParent<RectTransform>();
     }
 
-    void Start()
+    private void Start()
     {
         temporaryPos = transform.position;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.Mouse0) && CheckMouse(raycaster))
         {
@@ -43,10 +43,10 @@ public class BottomBarController : MonoBehaviour
         {
             if (transform.position.y + rectTransform.sizeDelta.y / 2 > Screen.height * 0.9f)
             {
-
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x, Screen.width, transform.position.z), Time.time * 0.005f);
 
+                /// TODO: ограничить по Y
             }
             else
             {
