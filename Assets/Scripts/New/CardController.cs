@@ -98,7 +98,7 @@ public class CardController : MonoBehaviour
         }
         else if (cardPosition == CardPosition.Passive) // в пассивном режиме возвращаем карту на центр экрана
         {
-            rectTransform.position = Vector3.Lerp(rectTransform.position, temporaryCardPos, Time.time * 0.005f);
+            rectTransform.position = Vector3.Lerp(rectTransform.position, temporaryCardPos, 0.3f);
             return;
         }
         else if (cardPosition != CardPosition.Passive)

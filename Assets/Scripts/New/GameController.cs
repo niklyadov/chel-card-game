@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-
     public Action<CardPosition> OnChangePosition;
     public Action<CardPosition> OnUpdateCard;
 
@@ -19,11 +18,6 @@ public class GameController : MonoBehaviour
     {
         OnChangePosition = onChangeCardPosition;
         OnUpdateCard = onUpdateCard;
-    }
-
-    private void Update()
-    {
-        
     }
 
     private void onChangeCardPosition(CardPosition position)
@@ -40,7 +34,7 @@ public class GameController : MonoBehaviour
 
     }
 
-    void OnGUI()
+    void OnGUI() // отображаем fps и тд
     {
         GUI.Label(new Rect(0, Screen.height - 40, 300, 20), $"frames {Math.Round(1.0f / Time.deltaTime)} FPS; time {Time.deltaTime}");
     }
