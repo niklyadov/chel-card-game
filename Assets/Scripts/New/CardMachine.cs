@@ -109,8 +109,7 @@ public class CardMachine : MonoBehaviour
         if (rectTransform.position.x < -Screen.width)
         {
             //TODO Здесь должен быть вызван какой-нибудь LeftChoice, обновляющий прогресс
-            rectTransform.position = new Vector3(basicPosition.x, -0.6f * Screen.height, 0f);
-            state = NewCardAppear;
+            state = UpdateCard;
         }
         else //улетает влево
             rectTransform.position -= new Vector3(Time.deltaTime * 3000, 0f, 0f);
@@ -121,8 +120,7 @@ public class CardMachine : MonoBehaviour
         if (rectTransform.position.x > 2*Screen.width)
         {
             //TODO Здесь должен быть вызван какой-нибудь RightChoice, обновляющий прогресс
-            rectTransform.position = new Vector3(basicPosition.x, -0.6f * Screen.height, 0f);
-            state = NewCardAppear;
+            state = UpdateCard;
         }
 
         else // улетает вправо
@@ -130,10 +128,13 @@ public class CardMachine : MonoBehaviour
     }
 
     //появление новой карты. Дожидаемся пока она появится
-    void NewCardAppear()
+    void ShowNewCard()
     {
         if (rectTransform.position.y > basicPosition.y)
-            state = UpdateCard;
+        {
+            rectTransform.position = basicPosition;
+            state = Passive;
+        }
 
         else // тихоньео 
             rectTransform.position += new Vector3(0f, Time.deltaTime * 3000, 0f);;
@@ -142,8 +143,8 @@ public class CardMachine : MonoBehaviour
     void UpdateCard()
     {
         //TODO Здесь должен быть вызван какой-нибудь скрипт UpdateCard, выбирающий новую рандомную карту
-        rectTransform.position = basicPosition;
-        state = Passive;
+        rectTransform.position = new Vector3(basicPosition.x, -0.6f * Screen.height, 0f);
+        state = ShowNewCard;
     }
 
     //вспомогательные штуки
