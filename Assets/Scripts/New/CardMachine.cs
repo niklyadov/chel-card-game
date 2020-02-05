@@ -18,8 +18,8 @@ Cкрипт работает на "графе" состояний
 */
 public class CardMachine : MonoBehaviour
 {
+    private GameController gameController;
     private Vector3 basicPosition;
-
     private RectTransform rectTransform;
     // Текущее состояние
     private Action state;
@@ -29,6 +29,7 @@ public class CardMachine : MonoBehaviour
     {
         rectTransform = this.GetComponent<RectTransform>();
         basicPosition = rectTransform.position;
+        gameController = new GameController(); //пока что так
 
         state = Passive;
     }
@@ -53,11 +54,17 @@ public class CardMachine : MonoBehaviour
         if (!Input.GetKey(KeyCode.Mouse0))
             state = GoToCenter;
         else if (Input.mousePosition.x > 0.8 * Screen.width)
+        {
             //TODO Здесь должен быть вызван скрипт, обновляющий описание выбора Справа
+            gameController.SwitchDescription(CardPosition.OnRight);
             state = GoToTheRight;
+        }
         else if (Input.mousePosition.x < 0.2 * Screen.width)
+        {
             //TODO Здесь должен быть вызван скрипт, обновляющий описание выбора Слева
+            gameController.SwitchDescription(CardPosition.OnLeft);
             state = GoToTheLeft;
+        }
 
         else //изменение позиции вслед за курсором
             rectTransform.position = Vector3.Lerp(rectTransform.position, Input.mousePosition, Time.deltaTime * 10);
@@ -109,6 +116,7 @@ public class CardMachine : MonoBehaviour
         if (rectTransform.position.x < -Screen.width)
         {
             //TODO Здесь должен быть вызван какой-нибудь LeftChoice, обновляющий прогресс
+            gameController.ApplyChoice(CardPosition.OnLeft);
             state = UpdateCard;
         }
         else //улетает влево
@@ -120,6 +128,7 @@ public class CardMachine : MonoBehaviour
         if (rectTransform.position.x > 2*Screen.width)
         {
             //TODO Здесь должен быть вызван какой-нибудь RightChoice, обновляющий прогресс
+            gameController.ApplyChoice(CardPosition.OnRight);
             state = UpdateCard;
         }
 
@@ -143,6 +152,7 @@ public class CardMachine : MonoBehaviour
     void UpdateCard()
     {
         //TODO Здесь должен быть вызван какой-нибудь скрипт UpdateCard, выбирающий новую рандомную карту
+        gameController.ChooseNewCard();
         rectTransform.position = new Vector3(basicPosition.x, -0.6f * Screen.height, 0f);
         state = ShowNewCard;
     }

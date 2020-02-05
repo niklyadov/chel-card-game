@@ -102,6 +102,20 @@ public class GameController : MonoBehaviour
 
     */
     }
+    public void SwitchDescription(CardPosition position)
+    {
+
+    }  
+
+    public void ApplyChoice(CardPosition position)
+    {
+
+    }
+
+    public void ChooseNewCard()
+    {
+
+    }
 
     void OnGUI() // отображаем fps и тд
     {
