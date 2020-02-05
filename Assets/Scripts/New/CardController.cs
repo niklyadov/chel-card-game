@@ -82,11 +82,11 @@ public class CardController : MonoBehaviour
                 }
 
                 // изменение позиции карты в зависимости от положения
-                if (rectTransform.position.x <= 50)  // слева с отступом
+                if (rectTransform.position.x <= 250)  // слева с отступом
                 {
                     ChangeCardPosition(CardPosition.OnLeft); // говорим что слева
                 }
-                else if (rectTransform.position.x >= Screen.width - 50) // справа с отступом
+                else if (rectTransform.position.x >= Screen.width - 250) // справа с отступом
                 {
                     ChangeCardPosition(CardPosition.OnRight); // говорим что справа
                 }
@@ -109,6 +109,9 @@ public class CardController : MonoBehaviour
                 fadeOutDeltatime = fadeOutDurationTime; // Зануляем счетчик
             }
         }
+
+        if (Input.GetKey(KeyCode.Mouse0))
+            return;
 
         if (cardPosition == CardPosition.OnLeft)
         {
@@ -135,7 +138,7 @@ public class CardController : MonoBehaviour
         cardPosition = pos; // меняем значение
 
         //вызываем делегат при изменении позиции
-        Statics.GameController.OnChangePosition(cardPosition);
+        Statics.GameController.ChangePosition(cardPosition);
 
     }
 
@@ -144,7 +147,7 @@ public class CardController : MonoBehaviour
         Debug.Log("----- Change card -----");
 
         // вызываем делегат при изменении обновлении карты
-        Statics.GameController.OnUpdateCard(cardPosition);
+        Statics.GameController.UpdateCard(cardPosition);
     }
 
     /// <summary>

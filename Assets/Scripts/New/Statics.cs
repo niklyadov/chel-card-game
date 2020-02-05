@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 public enum CardPosition
 {
@@ -11,5 +9,6 @@ public enum CardPosition
 
 public static class Statics
 {
+    public static Random Random = new System.Random();
     public static GameController GameController;
 }

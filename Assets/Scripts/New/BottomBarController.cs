@@ -12,6 +12,8 @@ public class BottomBarController : MonoBehaviour
     private RectTransform rectTransform;
     [SerializeField]
     private bool hidden = true;
+    private bool opened;
+    private bool closing;
 
     private void Awake()
     {
@@ -24,9 +26,15 @@ public class BottomBarController : MonoBehaviour
         temporaryPos = transform.position;
     }
 
+    public void Close()
+    {
+        closing = true;
+    }
+
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && CheckMouse(raycaster))
+
+        if (Input.GetKey(KeyCode.Mouse0) && CheckMouse(raycaster) && !opened)
         {
 
             if (cardController.enabled)
@@ -41,25 +49,35 @@ public class BottomBarController : MonoBehaviour
         }
         else
         {
-            if (transform.position.y + rectTransform.sizeDelta.y / 2 > Screen.height * 0.9f)
+            if (transform.position.y + rectTransform.sizeDelta.y / 2 > Screen.height * 0.85f)
             {
+             
                 transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x, Screen.width, transform.position.z), Time.time * 0.005f);
+                    new Vector3(transform.position.x, Screen.width-100, transform.position.z), 0.5f);
+
+                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, Screen.width - 100, transform.position.z)) < 1)
+                    opened = true;
 
                 /// TODO: ограничить по Y
             }
             else
             {
                 if (hidden)
+                {
+                    if (!cardController.enabled)
+                        cardController.enabled = true;
                     return;
+                }
+                    
 
-                transform.position = Vector3.Lerp(transform.position, temporaryPos, Time.time * 0.005f);
+                transform.position = Vector3.Lerp(transform.position, temporaryPos, 0.5f);
 
                 if (Vector3.Distance(transform.position, temporaryPos) < 1)
+                {
                     hidden = true;
-
-                if (!cardController.enabled)
-                    cardController.enabled = true;
+                    if (closing)
+                        closing = false;
+                }
             }
         }
     }
