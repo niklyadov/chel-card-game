@@ -1131,7 +1131,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8555156}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1.9000244}
+  m_AnchoredPosition: {x: 0, y: 1.8999023}
   m_SizeDelta: {x: 0, y: -2.7999992}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &360323573
@@ -1925,13 +1925,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1780761660}
-  m_Father: {fileID: 1267784294}
-  m_RootOrder: 3
+  m_Father: {fileID: 2050811138}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.40125, y: 0.0042964686}
-  m_AnchorMax: {x: 0.6, y: 0.044000003}
-  m_AnchoredPosition: {x: 0.000015258789, y: 0.35498047}
-  m_SizeDelta: {x: 0, y: -0.7099991}
+  m_AnchorMin: {x: 0.7863358, y: 0.11364445}
+  m_AnchorMax: {x: 1, y: 0.84135556}
+  m_AnchoredPosition: {x: 0.30200195, y: -0.2119999}
+  m_SizeDelta: {x: -0.79022217, y: -2.4240913}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &581373391
 MonoBehaviour:
@@ -1953,8 +1953,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+    m_HighlightedColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -3659,7 +3659,6 @@ RectTransform:
   - {fileID: 2050811138}
   - {fileID: 2141920974}
   - {fileID: 1077809946}
-  - {fileID: 581373390}
   m_Father: {fileID: 241466367}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5563,7 +5562,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 581373390}
   m_Father: {fileID: 1267784294}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

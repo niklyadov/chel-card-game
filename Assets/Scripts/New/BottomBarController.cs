@@ -29,6 +29,10 @@ public class BottomBarController : MonoBehaviour
     public void Close()
     {
         closing = true;
+        opened = false;
+
+        transform.position =
+                    new Vector3(transform.position.x, Screen.height * 0.5f - rectTransform.sizeDelta.y / 2);
     }
 
     private void Update()
@@ -44,7 +48,7 @@ public class BottomBarController : MonoBehaviour
 
             // двигаем за позицей курсора
             transform.position = Vector3.Lerp(transform.position,
-                        Input.mousePosition, Mathf.PingPong(Time.time * 0.2f, 0.1f));
+                        Input.mousePosition, Mathf.PingPong(Time.time * 0.5f, 0.5f));
             transform.position = new Vector3(temporaryPos.x, transform.position.y, temporaryPos.z);
         }
         else
@@ -53,9 +57,9 @@ public class BottomBarController : MonoBehaviour
             {
              
                 transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x, Screen.width-100, transform.position.z), 0.5f);
+                    new Vector3(transform.position.x, Screen.width - 110, transform.position.z), 0.5f);
 
-                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, Screen.width - 100, transform.position.z)) < 1)
+                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, Screen.width - 110, transform.position.z)) < 1)
                     opened = true;
 
                 /// TODO: ограничить по Y
@@ -69,7 +73,6 @@ public class BottomBarController : MonoBehaviour
                     return;
                 }
                     
-
                 transform.position = Vector3.Lerp(transform.position, temporaryPos, 0.5f);
 
                 if (Vector3.Distance(transform.position, temporaryPos) < 1)
