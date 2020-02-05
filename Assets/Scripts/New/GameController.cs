@@ -6,8 +6,8 @@ public class GameController : MonoBehaviour
     public Action<CardPosition> ChangePosition;
     public Action<CardPosition> UpdateCard;
 
-    private ProgressController progressController;
-    private DesignController designController;
+//    private ProgressController progressController;
+//    private DesignController designController;
 
     public Card CurrentCard;
 
@@ -16,14 +16,17 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        Statics.GameController = this; // Я — GameController!
-        Application.targetFrameRate = 60;
-        progressController = GetComponent<ProgressController>();
-        designController = GetComponent<DesignController>();
-    }
+		Application.targetFrameRate = 60;
+		// Statics.GameController = this; // Я — GameController!
+		/*
+		 progressController = GetComponent<ProgressController>();
+		 designController = GetComponent<DesignController>();
+		 */
+	}
 
     private void Start()
     {
+        /*
         ChangePosition = OnChangeCardPosition;
         UpdateCard = OnUpdateCard;
 
@@ -36,10 +39,12 @@ public class GameController : MonoBehaviour
         }
 
         progressController.SetValues(new float[] { 50, 30, 50, 50 });
+        */
     }
 
     private void OnChangeCardPosition(CardPosition position)
     {
+        /*
         if (position == CardPosition.Passive)
             return;
 
@@ -49,11 +54,12 @@ public class GameController : MonoBehaviour
         {
             designController.UpdateDescription(position == CardPosition.OnLeft ? CurrentCard.LeftLabel : CurrentCard.RightLabel);
         }
-
+        */
     }
 
     private void OnUpdateCard(CardPosition position)
     {
+        /*
         if (position == CardPosition.Passive)
             return;
 
@@ -94,7 +100,7 @@ public class GameController : MonoBehaviour
 
         designController.UpdateMainCard(CurrentCard.Icon, CurrentCard.Text);
 
-
+    */
     }
 
     void OnGUI() // отображаем fps и тд
