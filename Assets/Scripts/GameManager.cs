@@ -31,11 +31,11 @@ public class GameManager : MonoBehaviour
         if (deck == null || deckSpecial == null)
             throw new System.Exception("Error while load deck");
 
-        if (deck.CardList.Length == 0 || deckSpecial.CardList.Length == 0)
-            throw new System.Exception("Error: empty deck");
+//        if (deck.CardList.Length == 0 || deckSpecial.CardList.Length == 0)
+ //           throw new System.Exception("Error: empty deck");
 
         Restart();
-        currentCard = deckSpecial.CardList[0];
+        currentCard = deckSpecial.GetCard(0);
     }
 
     private void Update()
@@ -68,21 +68,21 @@ public class GameManager : MonoBehaviour
         var ok = false;
 
         if (parametres[0] <= 0)
-            currentCard = deckSpecial.CardList[1];
+            currentCard = deckSpecial.GetCard(1);
         else if (parametres[0] >= 100)
-            currentCard = deckSpecial.CardList[2];
+            currentCard = deckSpecial.GetCard(2);
         else if (parametres[1] <= 0)
-            currentCard = deckSpecial.CardList[3];
+            currentCard = deckSpecial.GetCard(3);
         else if (parametres[1] >= 100)
-            currentCard = deckSpecial.CardList[4];
+            currentCard = deckSpecial.GetCard(4);
         else if (parametres[2] <= 0)
-            currentCard = deckSpecial.CardList[5];
+            currentCard = deckSpecial.GetCard(5);
         else if (parametres[2] >= 100)
-            currentCard = deckSpecial.CardList[6];
+            currentCard = deckSpecial.GetCard(6);
         else if (parametres[3] <= 0)
-            currentCard = deckSpecial.CardList[7];
+            currentCard = deckSpecial.GetCard(7);
         else if (parametres[3] >= 100)
-            currentCard = deckSpecial.CardList[8];
+            currentCard = deckSpecial.GetCard(8);
         else ok = true;
 
         return ok;

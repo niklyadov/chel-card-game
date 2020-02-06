@@ -5,6 +5,7 @@ public static class GameController
 {
     public static Action<CardPosition> SwitchDescription = OnSwitchDescription;
     public static Action<CardPosition> ApplyChoice = OnApplyChoice;
+    public static Action<Card> CardUpdate;
 
     public static Card CurrentCard;
 
@@ -26,7 +27,7 @@ public static class GameController
 
     private static void OnSwitchDescription(CardPosition position)
     {
-
+        Debug.Log("Switch");
     }
 
     private static void OnApplyChoice(CardPosition position)
@@ -36,6 +37,9 @@ public static class GameController
 
     public static void ChooseNewCard()
     {
+        CurrentCard = deck.GetRandom();
+
+        CardUpdate(CurrentCard);
 
     }
 
@@ -98,4 +102,3 @@ public static class GameController
    
     }*/
 }
-
