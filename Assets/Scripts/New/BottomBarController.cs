@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class BottomBarController : MonoBehaviour
 {
-    public CardController cardController;
+    public CardMachine cardMachine;
     private GraphicRaycaster raycaster;
     private Vector3 temporaryPos;
     private RectTransform rectTransform;
@@ -29,8 +29,8 @@ public class BottomBarController : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && CheckMouse(raycaster))
         {
 
-            if (cardController.enabled)
-                cardController.enabled = false;
+            if (cardMachine.enabled)
+                cardMachine.enabled = false;
 
             hidden = false;
 
@@ -58,8 +58,8 @@ public class BottomBarController : MonoBehaviour
                 if (Vector3.Distance(transform.position, temporaryPos) < 1)
                     hidden = true;
 
-                if (!cardController.enabled)
-                    cardController.enabled = true;
+                if (!cardMachine.enabled)
+                    cardMachine.enabled = true;
             }
         }
     }

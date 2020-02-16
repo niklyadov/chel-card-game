@@ -28,8 +28,8 @@ public class CardMachine : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
         basicPosition = rectTransform.position;
-
         state = Passive;
+        GameController.CardUpdate.Invoke(GameController.CurrentCard);
     }
 
     void Update()
@@ -38,6 +38,10 @@ public class CardMachine : MonoBehaviour
     }
 
     //Методы-состояния
+    void StartState()
+    {
+        GameController.CardUpdate.Invoke(GameController.CurrentCard);
+    }
 
     //Карта пассивна - ничего не происходит. Ждем пока на неё тыкнут
     void Passive()

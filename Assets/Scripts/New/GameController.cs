@@ -8,6 +8,7 @@ public static class GameController
     public static Action<Card> CardUpdate;
 
     public static Card CurrentCard;
+    public static float[] Progress = new float[] { 50, 30, 50, 50 };
 
     private static Deck deck;
     private static Deck specialDeck;
@@ -23,6 +24,8 @@ public static class GameController
         {
             throw new Exception("Error while load deck");
         }
+
+        CurrentCard = specialDeck.CardList[0];
     }
 
     private static void OnSwitchDescription(CardPosition position)
@@ -32,73 +35,49 @@ public static class GameController
 
     private static void OnApplyChoice(CardPosition position)
     {
-
+        Debug.Log("Apply Choice");
     }
 
     public static void ChooseNewCard()
     {
-        CurrentCard = deck.GetRandom();
+        if (ProgressIsNormal())
+            CurrentCard = deck.GetRandom();
+        else
+        {
+            Progress = new float[] { 50, 30, 50, 50 };
+        }
 
         CardUpdate(CurrentCard);
-
     }
 
-    /*
-    private void OnChangeCardPosition(CardPosition position)
+    private static bool ProgressIsNormal()
     {
-        if (position == CardPosition.Passive)
-            return;
+        var ok = false;
 
-        // ой, карта поменяла позицию
+        if (Progress[0] <= 0) //параметр
+            CurrentCard = specialDeck.GetCard(1); //номер концовки
+        else if (Progress[0] >= 100)
+            CurrentCard = specialDeck.GetCard(2);
+        else if (Progress[1] <= 0)
+            CurrentCard = specialDeck.GetCard(3);
+        else if (Progress[1] >= 100)
+            CurrentCard = specialDeck.GetCard(4);
+        else if (Progress[2] <= 0)
+            CurrentCard = specialDeck.GetCard(5);
+        else if (Progress[2] >= 100)
+            CurrentCard = specialDeck.GetCard(6);
+        else if (Progress[3] <= 0)
+            CurrentCard = specialDeck.GetCard(7);
+        else if (Progress[3] >= 100)
+            CurrentCard = specialDeck.GetCard(8);
+        else
+            ok = true;
 
-        if (CurrentCard != null)
-        {
-            designController.UpdateDescription(position == CardPosition.OnLeft ? CurrentCard.LeftLabel : CurrentCard.RightLabel);
-        }
-     }
-     private void OnUpdateCard(CardPosition position)
-     {
-         /*
-         if (position == CardPosition.Passive)
-             return;
+        return ok;
+    }
 
-         //применяем значения
-         if (CurrentCard != null)
-         {
-             progressController.ApplyChanges(position == CardPosition.OnLeft ? CurrentCard.Left : CurrentCard.Right);
-         }
-
-         // карта должна поменяться
-         CurrentCard = null;
-
-         var values = progressController.GetValues();
-
-         int checks = 0;
-         for (int i = 0; i < values.Length; i++)
-         {
-             checks++;
-             if (values[i] <= 0)
-             {
-                 CurrentCard = specialDeck.GetCard(checks);
-                 break;
-             }
-
-             checks++;
-             if (values[i] > 100)
-             {
-                 CurrentCard = specialDeck.GetCard(checks);
-                 break;
-             }
-         }
-
-         //специальная карта не была применена
-         if (CurrentCard == null)
-         {
-             CurrentCard = deck.GetRandom();
-         }
-
-         designController.UpdateMainCard(CurrentCard.Icon, CurrentCard.Text);
-
-   
-    }*/
+    private static void Restart()
+    {
+        Progress = new float[] { 50, 30, 50, 50 };
+    }
 }
