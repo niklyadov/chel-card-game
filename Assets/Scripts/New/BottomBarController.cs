@@ -12,6 +12,8 @@ public class BottomBarController : MonoBehaviour
     private RectTransform rectTransform;
     [SerializeField]
     private bool hidden = true;
+    private bool opened;
+    private bool closing;
 
     private void Awake()
     {
@@ -19,47 +21,71 @@ public class BottomBarController : MonoBehaviour
         rectTransform = GetComponentInParent<RectTransform>();
     }
 
-    void Start()
+    private void Start()
     {
         temporaryPos = transform.position;
     }
 
-    void Update()
+    public void Close()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && CheckMouse(raycaster))
-        {
+        closing = true;
+        opened = false;
 
+        transform.position =
+                    new Vector3(transform.position.x, Screen.height * 0.5f - rectTransform.sizeDelta.y / 2);
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKey(KeyCode.Mouse0) && CheckMouse(raycaster) && !opened)
+        {
+            // отключаем контроллер карты
             if (cardMachine.enabled)
+            {
                 cardMachine.enabled = false;
+            }
 
             hidden = false;
 
             // двигаем за позицей курсора
             transform.position = Vector3.Lerp(transform.position,
-                        Input.mousePosition, Mathf.PingPong(Time.time * 0.2f, 0.1f));
+                        Input.mousePosition, Mathf.PingPong(Time.time * 0.5f, 0.5f));
             transform.position = new Vector3(temporaryPos.x, transform.position.y, temporaryPos.z);
         }
         else
         {
-            if (transform.position.y + rectTransform.sizeDelta.y / 2 > Screen.height * 0.9f)
+            if (transform.position.y + rectTransform.sizeDelta.y / 2 > Screen.height * 0.85f)
             {
-
+             
                 transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x, Screen.width, transform.position.z), Time.time * 0.005f);
+                    new Vector3(transform.position.x, Screen.width - 110, transform.position.z), 0.5f);
 
+                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, Screen.width - 110, transform.position.z)) < 1)
+                    opened = true;
+
+                /// TODO: ограничить по Y
             }
             else
             {
-                if (hidden)
+                if (hidden) // полностью скрыт
+                {
+                    //  включить обратно управление картой (если отключено)
+                    if (!cardMachine.enabled)
+                    {
+                        cardMachine.enabled = true;
+                    }
                     return;
-
-                transform.position = Vector3.Lerp(transform.position, temporaryPos, Time.time * 0.005f);
+                }
+                    
+                transform.position = Vector3.Lerp(transform.position, temporaryPos, 0.5f);
 
                 if (Vector3.Distance(transform.position, temporaryPos) < 1)
+                {
                     hidden = true;
-
-                if (!cardMachine.enabled)
-                    cardMachine.enabled = true;
+                    if (closing)
+                        closing = false;
+                }
             }
         }
     }
