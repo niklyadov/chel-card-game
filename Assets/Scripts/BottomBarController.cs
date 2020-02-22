@@ -48,10 +48,18 @@ public class BottomBarController : MonoBehaviour
 
             hidden = false;
 
+            // ограничение по Y
+            if (transform.position.y >= Screen.width - 110)
+            {
+                opened = true;
+                return;
+            }
+
             // двигаем за позицей курсора
             transform.position = Vector3.Lerp(transform.position,
                         Input.mousePosition, Mathf.PingPong(Time.time * 0.5f, 0.5f));
             transform.position = new Vector3(temporaryPos.x, transform.position.y, temporaryPos.z);
+
         }
         else
         {
@@ -62,9 +70,10 @@ public class BottomBarController : MonoBehaviour
                     new Vector3(transform.position.x, Screen.width - 110, transform.position.z), 0.5f);
 
                 if (Vector3.Distance(transform.position, new Vector3(transform.position.x, Screen.width - 110, transform.position.z)) < 1)
+                {
                     opened = true;
-
-                /// TODO: ограничить по Y
+                    return;
+                }
             }
             else
             {
