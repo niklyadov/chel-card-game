@@ -49,7 +49,7 @@ public class BottomBarController : MonoBehaviour
             hidden = false;
 
             // ограничение по Y
-            if (transform.position.y >= Screen.width - 110)
+            if (transform.position.y >= Screen.width - 160)
             {
                 opened = true;
                 return;
@@ -67,9 +67,9 @@ public class BottomBarController : MonoBehaviour
             {
              
                 transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x, Screen.width - 110, transform.position.z), 0.5f);
+                    new Vector3(transform.position.x, Screen.width - 160, transform.position.z), 0.5f);
 
-                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, Screen.width - 110, transform.position.z)) < 1)
+                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, Screen.width - 160, transform.position.z)) < 1)
                 {
                     opened = true;
                     return;
