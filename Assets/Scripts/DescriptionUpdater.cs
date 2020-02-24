@@ -10,7 +10,7 @@ public class DescriptionUpdater : MonoBehaviour
 
 	void Awake()
 	{
-		GameController.SwitchDescription = UpdateData; // при изменении карты
+		GameController.SwitchDescription[(int)GameMode.Default] = UpdateData; // при изменении карты
 	}
 
 	void UpdateData(CardPosition position)

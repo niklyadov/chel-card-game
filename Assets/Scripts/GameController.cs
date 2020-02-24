@@ -1,11 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+public enum GameMode 
+{
+    Default,
+    Labirint
+}
 
 public static class GameController
 {
-    public static Action<CardPosition> SwitchDescription = OnSwitchDescription;
-    public static Action<CardPosition> ApplyChoice = OnApplyChoice;
+    public static Action<CardPosition>[] SwitchDescription = new Action<CardPosition>[2];
+    public static Action<CardPosition>[] ApplyChoice       = new Action<CardPosition>[2];
+
     public static Action<Card> CardUpdate;
+
+    public static GameMode GameMode = GameMode.Default;
 
     public static Card CurrentCard;
     public static float[] Progress = new float[] { 50, 30, 50, 50 };

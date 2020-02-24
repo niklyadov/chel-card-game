@@ -58,13 +58,13 @@ public class CardMachine : MonoBehaviour
         else if (Input.mousePosition.x > 0.8 * Screen.width)
         {
             //TODO Здесь должен быть вызван скрипт, обновляющий описание выбора Справа
-            GameController.SwitchDescription(CardPosition.OnRight);
+            GameController.SwitchDescription[(int)GameController.GameMode](CardPosition.OnRight);
             state = GoToTheRight;
         }
         else if (Input.mousePosition.x < 0.2 * Screen.width)
         {
             //TODO Здесь должен быть вызван скрипт, обновляющий описание выбора Слева
-            GameController.SwitchDescription(CardPosition.OnLeft);
+            GameController.SwitchDescription[(int)GameController.GameMode](CardPosition.OnLeft);
             state = GoToTheLeft;
         }
 
@@ -118,7 +118,7 @@ public class CardMachine : MonoBehaviour
         if (rectTransform.position.x < -Screen.width)
         {
             //TODO Здесь должен быть вызван какой-нибудь LeftChoice, обновляющий прогресс
-            GameController.ApplyChoice(CardPosition.OnLeft);
+            GameController.ApplyChoice[(int)GameController.GameMode](CardPosition.OnLeft);
             state = UpdateCard;
         }
         else //улетает влево
@@ -130,7 +130,7 @@ public class CardMachine : MonoBehaviour
         if (rectTransform.position.x > 2 * Screen.width)
         {
             //TODO Здесь должен быть вызван какой-нибудь RightChoice, обновляющий прогресс
-            GameController.ApplyChoice(CardPosition.OnRight);
+            GameController.ApplyChoice[(int)GameController.GameMode](CardPosition.OnRight);
             state = UpdateCard;
         }
 

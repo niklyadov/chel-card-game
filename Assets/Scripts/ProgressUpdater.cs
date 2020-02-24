@@ -8,7 +8,7 @@ public class ProgressUpdater : MonoBehaviour
 
     void Start()
     {
-        GameController.ApplyChoice += UpdateProgress;
+        GameController.ApplyChoice[(int)GameMode.Default] += UpdateProgress;
 
         //обновить прогресс в самом начале
         DisplayProgress();

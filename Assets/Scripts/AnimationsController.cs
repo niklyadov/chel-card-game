@@ -7,7 +7,7 @@ public class AnimationsController : MonoBehaviour
 
     void Start()
     {
-        GameController.ApplyChoice += PlayAnimations;
+        GameController.ApplyChoice[(int)GameMode.Default] += PlayAnimations;
     }
 
     // Update is called once per frame
