@@ -14,16 +14,35 @@ public class BottomBarController : MonoBehaviour
     private bool hidden = true;
     private bool opened;
     private bool closing;
-
+    [SerializeField]
+    private Toggle ToggleBackgroundSound;
+    [SerializeField]
+    private Toggle ToggleOnlistSound;
     private void Awake()
     {
         raycaster = GetComponentInParent<GraphicRaycaster>();
         rectTransform = GetComponentInParent<RectTransform>();
+
+        ToggleBackgroundSound.onValueChanged.AddListener(delegate {  
+            {
+                GameController.GameOptions.Options.MuteBackgroundSound = !ToggleBackgroundSound.isOn;
+                GameController.GameOptions.WriteOptions();
+            };
+        });
+        ToggleOnlistSound.onValueChanged.AddListener(delegate {
+            {
+                GameController.GameOptions.Options.MuteOnListSound = !ToggleOnlistSound.isOn;
+                GameController.GameOptions.WriteOptions();
+            };
+        });
     }
 
     private void Start()
     {
         temporaryPos = transform.position;
+
+        ToggleBackgroundSound.isOn = !GameController.GameOptions.Options.MuteBackgroundSound;
+        ToggleOnlistSound.isOn     = !GameController.GameOptions.Options.MuteOnListSound;
     }
 
     public void Close()
@@ -49,7 +68,7 @@ public class BottomBarController : MonoBehaviour
             hidden = false;
 
             // ограничение по Y
-            if (transform.position.y >= Screen.width - 160)
+            if (transform.position.y >= Screen.height)
             {
                 opened = true;
                 return;
@@ -65,11 +84,11 @@ public class BottomBarController : MonoBehaviour
         {
             if (transform.position.y + rectTransform.sizeDelta.y / 2 > Screen.height * 0.85f)
             {
-             
-                transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x, Screen.width - 160, transform.position.z), 0.5f);
 
-                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, Screen.width - 160, transform.position.z)) < 1)
+                transform.position = Vector3.Lerp(transform.position,
+                    new Vector3(transform.position.x, (Screen.height / 2) - 25, transform.position.z), 0.5f);
+
+                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, (Screen.height / 2) - 25, transform.position.z)) < 1)
                 {
                     opened = true;
                     return;
@@ -86,7 +105,7 @@ public class BottomBarController : MonoBehaviour
                     }
                     return;
                 }
-                    
+
                 transform.position = Vector3.Lerp(transform.position, temporaryPos, 0.5f);
 
                 if (Vector3.Distance(transform.position, temporaryPos) < 1)
