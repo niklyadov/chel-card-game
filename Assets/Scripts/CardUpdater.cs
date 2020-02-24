@@ -29,6 +29,11 @@ public class CardUpdater : MonoBehaviour
 
         // звук листания (можем играть?)
         if(_audioSource.enabled) _audioSource.PlayOneShot(_audioClip);
+
+        if(GameController.GameOptions.Options.EnableVibrateOnList)
+        {
+            Vibration.Vibrate(20);
+        }
     } 
 
 }

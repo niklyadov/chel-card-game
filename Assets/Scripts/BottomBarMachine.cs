@@ -18,6 +18,8 @@ public class BottomBarMachine : MonoBehaviour
     private Toggle ToggleBackgroundSound;
     [SerializeField]
     private Toggle ToggleOnlistSound;
+    [SerializeField]
+    private Toggle ToggleOnlistVibrate;
 
     void Awake()
     {
@@ -36,6 +38,12 @@ public class BottomBarMachine : MonoBehaviour
                 GameController.GameOptions.WriteOptions();
             };
         });
+        ToggleOnlistVibrate.onValueChanged.AddListener(delegate {
+            {
+                GameController.GameOptions.Options.EnableVibrateOnList = ToggleOnlistVibrate.isOn;
+                GameController.GameOptions.WriteOptions();
+            };
+        });
     }
 
     void Start()
@@ -45,6 +53,7 @@ public class BottomBarMachine : MonoBehaviour
 
         ToggleBackgroundSound.isOn  = !GameController.GameOptions.Options.MuteBackgroundSound;
         ToggleOnlistSound.isOn      = !GameController.GameOptions.Options.MuteOnListSound;
+        ToggleOnlistVibrate.isOn    =  GameController.GameOptions.Options.EnableVibrateOnList;
     }
 
     void Update()
@@ -74,7 +83,7 @@ public class BottomBarMachine : MonoBehaviour
         }
         else 
         {
-            if (transform.position.y + rectTransform.sizeDelta.y / 2 >= Screen.height * 0.8f)
+            if (transform.position.y + rectTransform.sizeDelta.y / 2 >= Screen.height * 0.6f)
                 state = Opening;
             else
                 state = Closing;
