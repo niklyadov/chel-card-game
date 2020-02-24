@@ -68,7 +68,7 @@ public class BottomBarController : MonoBehaviour
             hidden = false;
 
             // ограничение по Y
-            if (transform.position.y >= Screen.height)
+            if (transform.position.y + rectTransform.sizeDelta.y / 2 >= Screen.height)
             {
                 opened = true;
                 return;

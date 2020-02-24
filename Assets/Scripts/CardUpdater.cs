@@ -27,6 +27,7 @@ public class CardUpdater : MonoBehaviour
         _text.text = card.Text;
         _image.sprite = Resources.Load<Sprite>(@"Sprites/" + card.Icon);
 
+        // звук листания (можем играть?)
         if(_audioSource.enabled) _audioSource.PlayOneShot(_audioClip);
     } 
 

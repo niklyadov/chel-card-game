@@ -29,7 +29,7 @@ public class CardMachine : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         basicPosition = rectTransform.position;
         state = Passive;
-        GameController.CardUpdate.Invoke(GameController.CurrentCard);
+        StartState();
     }
 
     void Update()

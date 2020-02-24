@@ -26,6 +26,7 @@ public class GameOptionsController
         if (gameOptions == null) gameOptions = _gameOptions; // current options
 
         PlayerPrefs.SetString(KeyName, gameOptions.CreateJson());
+        Debug.Log(gameOptions.CreateJson());
     }
 
     public void ResetOptions()
