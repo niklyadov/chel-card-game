@@ -20,7 +20,12 @@ public class Deck
 
     public Card GetRandom()
     {
-        return CardList[Defines.Random.Next(0, CardList.Length)];
+        return CardList[new System.Random().Next(0, CardList.Length)];
+    }
+
+    public Card GetCard(int id)
+    {
+        return id > 0 && id < CardList.Length ? CardList[id] : null;
     }
 
     public Card GetCard(int id = 0)
