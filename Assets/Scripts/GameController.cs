@@ -45,14 +45,10 @@ public static class GameController
         CurrentCard = _specialDeck.CardList[0];
     }
 
-    private static void OnSwitchDescription(CardPosition position)
+    public static void ResetValues(float[] values = null) 
     {
-        Debug.Log("Switch");
-    }
-
-    private static void OnApplyChoice(CardPosition position)
-    {
-        Debug.Log("Apply Choice");
+        values = values ?? (new float[] { 50, 30, 50, 50 });
+        Progress = values;
     }
 
     public static void ChooseNewCard()

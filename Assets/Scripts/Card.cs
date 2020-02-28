@@ -16,7 +16,7 @@ public class Card
     public string Text;
     public string Icon;
 
-    public float[] Left = new float[0];
+    public float[] Left  = new float[0];
     public float[] Right = new float[0];
 
     public string LeftLabel;

@@ -2,6 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+enum AnimationDirection
+{
+	Plus,
+	Minus,
+	Idle
+}
+
 public class ValueBar : MonoBehaviour
 {
 	private float currentValue;

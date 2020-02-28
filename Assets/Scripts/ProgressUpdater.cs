@@ -7,12 +7,20 @@ public class ProgressUpdater : MonoBehaviour
     Text[] progresses;
 
     void Start()
-    {
+    {   
+        // только для gamemode default
         GameController.ApplyChoice[(int)GameMode.Default] += UpdateProgress;
 
         //обновить прогресс в самом начале
         DisplayProgress();
     }
+
+    public void ResetProgress() 
+    {
+        GameController.ResetValues(); // вернуть значения прогресса в начальные
+        DisplayProgress();            // и обновить их
+    }
+
     void UpdateProgress(CardPosition position)
     {
         //выбираем соответствующий массив "последствий" для текущей карты
