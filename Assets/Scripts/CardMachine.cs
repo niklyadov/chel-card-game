@@ -84,7 +84,11 @@ public class CardMachine : MonoBehaviour
         }
 
         else //возвращение в центр
-            rectTransform.position = Vector3.Lerp(rectTransform.position, basicPosition, Time.deltaTime * 10);
+        {
+            //rectTransform.position = Vector3.Lerp(rectTransform.position, basicPosition, Time.deltaTime * 10); //плавненько, но кривенько
+            rectTransform.position = basicPosition;
+        }
+
     }
 
     //Переход карты влево. Ждём пока отпустят или вернут карту в центр
@@ -96,8 +100,12 @@ public class CardMachine : MonoBehaviour
             state = ActiveInCenter;
 
         else if (rectTransform.position.x > -0.2 * Screen.width)
-        //перемещение влево
+        {
             rectTransform.position -= new Vector3(Time.deltaTime * 1500, 0f, 0f);
+            
+        }
+        //перемещение влево
+            
     }
 
     void GoToTheRight()

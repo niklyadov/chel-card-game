@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BottomBarMachine : MonoBehaviour
@@ -14,33 +15,33 @@ public class BottomBarMachine : MonoBehaviour
     private Action state;
 
 
-    [SerializeField]
-    private Toggle ToggleBackgroundSound;
-    [SerializeField]
-    private Toggle ToggleOnlistSound;
-    [SerializeField]
-    private Toggle ToggleOnlistVibrate;
+    [FormerlySerializedAs("ToggleBackgroundSound")] [SerializeField]
+    private Toggle toggleBackgroundSound;
+    [FormerlySerializedAs("ToggleOnlistSound")] [SerializeField]
+    private Toggle toggleOnlistSound;
+    [FormerlySerializedAs("ToggleOnlistVibrate")] [SerializeField]
+    private Toggle toggleOnlistVibrate;
 
     void Awake()
     {
         raycaster = GetComponentInParent<GraphicRaycaster>();
         rectTransform = GetComponentInParent<RectTransform>();
 
-        ToggleBackgroundSound.onValueChanged.AddListener(delegate {
+        toggleBackgroundSound.onValueChanged.AddListener(delegate {
             {
-                GameController.GameOptions.Options.MuteBackgroundSound = !ToggleBackgroundSound.isOn;
+                GameController.GameOptions.Options.MuteBackgroundSound = !toggleBackgroundSound.isOn;
                 GameController.GameOptions.WriteOptions();
             };
         });
-        ToggleOnlistSound.onValueChanged.AddListener(delegate {
+        toggleOnlistSound.onValueChanged.AddListener(delegate {
             {
-                GameController.GameOptions.Options.MuteOnListSound = !ToggleOnlistSound.isOn;
+                GameController.GameOptions.Options.MuteOnListSound = !toggleOnlistSound.isOn;
                 GameController.GameOptions.WriteOptions();
             };
         });
-        ToggleOnlistVibrate.onValueChanged.AddListener(delegate {
+        toggleOnlistVibrate.onValueChanged.AddListener(delegate {
             {
-                GameController.GameOptions.Options.EnableVibrateOnList = ToggleOnlistVibrate.isOn;
+                GameController.GameOptions.Options.EnableVibrateOnList = toggleOnlistVibrate.isOn;
                 GameController.GameOptions.WriteOptions();
             };
         });
@@ -51,9 +52,10 @@ public class BottomBarMachine : MonoBehaviour
         temporaryPos = transform.position;
         state = Idle;
 
-        ToggleBackgroundSound.isOn  = !GameController.GameOptions.Options.MuteBackgroundSound;
-        ToggleOnlistSound.isOn      = !GameController.GameOptions.Options.MuteOnListSound;
-        ToggleOnlistVibrate.isOn    =  GameController.GameOptions.Options.EnableVibrateOnList;
+        toggleBackgroundSound.isOn  = !GameController.GameOptions.Options.MuteBackgroundSound;
+        toggleOnlistSound.isOn      = !GameController.GameOptions.Options.MuteOnListSound;
+        toggleOnlistVibrate.isOn = GameController.GameOptions.Options.EnableVibrateOnList;
+        
     }
 
     void Update()
