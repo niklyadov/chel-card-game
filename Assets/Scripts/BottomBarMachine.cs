@@ -10,10 +10,10 @@ public class BottomBarMachine : MonoBehaviour
 {
     public CardMachine cardMachine;
     private GraphicRaycaster raycaster;
-    private Vector3 temporaryPos;
-    private RectTransform rectTransform;
+                                            private Vector3 temporaryPos;
+                                            private RectTransform rectTransform;
     private Action state;
-
+    public bool IsOpened = false;
 
     [FormerlySerializedAs("ToggleBackgroundSound")] [SerializeField]
     private Toggle toggleBackgroundSound;
@@ -98,8 +98,9 @@ public class BottomBarMachine : MonoBehaviour
         state = Closing;
     }
 
-    void Closing() 
+    void Closing()
     {
+        IsOpened = false;
         transform.position = Vector3.Lerp(transform.position, temporaryPos, 0.5f);
 
         if (Vector3.Distance(transform.position, temporaryPos) < 1)
@@ -114,8 +115,9 @@ public class BottomBarMachine : MonoBehaviour
         if (Vector3.Distance(transform.position, new Vector3(transform.position.x, (Screen.height / 2) - 25, transform.position.z)) < 1)
             state = Opened;
     }
-    void Opened() 
+    void Opened()
     {
+        IsOpened = true;
         // --- ЗАГЛУШКА ---
         // открыто, ничего не делаем
     }
