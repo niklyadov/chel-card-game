@@ -12,26 +12,27 @@ public static class GameController
 {
     public static Action<CardPosition>[] SwitchDescription = new Action<CardPosition>[2];
     public static Action<CardPosition>[] ApplyChoice       = new Action<CardPosition>[2];
-
+    public static Action<BarPosition> [] BarStateChange    = new Action<BarPosition>[2];
+    
     public static Action<Card> CardUpdate;
 
     public static GameMode GameMode = GameMode.Default;
 
     public static Card CurrentCard;
-    public static float[] Progress = new float[] { 50, 30, 50, 50 };
+    public static float[] Progress = { 50, 30, 50, 50 };
 
     private static readonly Deck _deck;
     private static readonly Deck _specialDeck;
 
-    public static readonly GameOptionsController GameOptions;
+    public static readonly GameStorageController GameStorage;
 
     static GameController ()
     {
-        GameOptions = new GameOptionsController();
+        GameStorage = new GameStorageController();
 
-        if (GameOptions.Options.FpsLock > 0)
+        if (GameStorage.Options.FpsLock > 0)
         {
-            Application.targetFrameRate = GameOptions.Options.FpsLock;
+            Application.targetFrameRate = GameStorage.Options.FpsLock;
         }
 
         _deck        = Deck.CreateFromJSON(Resources.Load<TextAsset>("cards").text);
@@ -68,24 +69,31 @@ public static class GameController
         var ok = false;
 
         if (Progress[0] <= 0) //параметр
-            CurrentCard = _specialDeck.GetCard(1); //номер концовки
+            HandleEnding(1);
         else if (Progress[0] >= 100)
-            CurrentCard = _specialDeck.GetCard(2);
+            HandleEnding(2);
         else if (Progress[1] <= 0)
-            CurrentCard = _specialDeck.GetCard(3);
+            HandleEnding(3);
         else if (Progress[1] >= 100)
-            CurrentCard = _specialDeck.GetCard(4);
+            HandleEnding(4);
         else if (Progress[2] <= 0)
-            CurrentCard = _specialDeck.GetCard(5);
+            HandleEnding(5);
         else if (Progress[2] >= 100)
-            CurrentCard = _specialDeck.GetCard(6);
+            HandleEnding(6);
         else if (Progress[3] <= 0)
-            CurrentCard = _specialDeck.GetCard(7);
+            HandleEnding(7);
         else if (Progress[3] >= 100)
-            CurrentCard = _specialDeck.GetCard(8);
+            HandleEnding(8);
         else
             ok = true;
 
         return ok;
+    }
+
+    private static void HandleEnding(int id)
+    {
+        CurrentCard = _specialDeck.GetCard(id); //номер концовки
+        GameStorage.Achievements.Data[id-1] = true;
+        GameStorage.UpdateAchievements();
     }
 }

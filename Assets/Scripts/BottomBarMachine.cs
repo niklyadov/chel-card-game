@@ -6,12 +6,18 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+public enum BarPosition
+{
+    Opened,
+    Closed
+}
+
 public class BottomBarMachine : MonoBehaviour
 {
     public CardMachine cardMachine;
     private GraphicRaycaster raycaster;
-                                            private Vector3 temporaryPos;
-                                            private RectTransform rectTransform;
+    private Vector3 temporaryPos;
+    private RectTransform rectTransform;
     private Action state;
     public bool IsOpened = false;
 
@@ -22,53 +28,74 @@ public class BottomBarMachine : MonoBehaviour
     [FormerlySerializedAs("ToggleOnlistVibrate")] [SerializeField]
     private Toggle toggleOnlistVibrate;
 
-    void Awake()
+    [SerializeField]
+    private Text achievementsLabel;
+
+    private int tapCountsM = 10;
+    private int tapCounts = 0;
+    
+    private void Awake()
     {
         raycaster = GetComponentInParent<GraphicRaycaster>();
         rectTransform = GetComponentInParent<RectTransform>();
 
-        toggleBackgroundSound.onValueChanged.AddListener(delegate {
+        toggleBackgroundSound.onValueChanged.AddListener(delegate
+        {
             {
-                GameController.GameOptions.Options.MuteBackgroundSound = !toggleBackgroundSound.isOn;
-                GameController.GameOptions.WriteOptions();
+                GameController.GameStorage.Options.MuteBackgroundSound = !toggleBackgroundSound.isOn;
+                GameController.GameStorage.WriteOptions();
             };
         });
-        toggleOnlistSound.onValueChanged.AddListener(delegate {
+        toggleOnlistSound.onValueChanged.AddListener(delegate
+        {
             {
-                GameController.GameOptions.Options.MuteOnListSound = !toggleOnlistSound.isOn;
-                GameController.GameOptions.WriteOptions();
+                GameController.GameStorage.Options.MuteOnListSound = !toggleOnlistSound.isOn;
+                GameController.GameStorage.WriteOptions();
             };
         });
-        toggleOnlistVibrate.onValueChanged.AddListener(delegate {
+        toggleOnlistVibrate.onValueChanged.AddListener(delegate
+        {
             {
-                GameController.GameOptions.Options.EnableVibrateOnList = toggleOnlistVibrate.isOn;
-                GameController.GameOptions.WriteOptions();
+                GameController.GameStorage.Options.EnableVibrateOnList = toggleOnlistVibrate.isOn;
+                GameController.GameStorage.WriteOptions();
             };
         });
     }
 
-    void Start()
+    public void ResetStats()
     {
+        GameController.GameStorage.ResetAchievements();
+        state = Closing;
+    }
+    public void ResetOptions()
+    {
+        GameController.GameStorage.ResetAchievements();
+        state = Closing;
+    }
+    
+    private void Start()
+    {
+        tapCounts = tapCountsM;
         temporaryPos = transform.position;
         state = Idle;
 
-        toggleBackgroundSound.isOn  = !GameController.GameOptions.Options.MuteBackgroundSound;
-        toggleOnlistSound.isOn      = !GameController.GameOptions.Options.MuteOnListSound;
-        toggleOnlistVibrate.isOn = GameController.GameOptions.Options.EnableVibrateOnList;
+        toggleBackgroundSound.isOn  = !GameController.GameStorage.Options.MuteBackgroundSound;
+        toggleOnlistSound.isOn      = !GameController.GameStorage.Options.MuteOnListSound;
+        toggleOnlistVibrate.isOn =     GameController.GameStorage.Options.EnableVibrateOnList;
         
     }
 
-    void Update()
+    private void Update()
     {
         state.Invoke();
     }
-    void Idle()
+    private void Idle()
     {
         if (CheckMouse(raycaster))
             state = HandleMove; // обработать все перемещения
     }
 
-    void HandleMove()
+    private void HandleMove()
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {
@@ -83,14 +110,13 @@ public class BottomBarMachine : MonoBehaviour
             if (transform.position.y + rectTransform.sizeDelta.y / 2 >= Screen.height)
                 state = Opening;
         }
-        else 
+        else
         {
             if (transform.position.y + rectTransform.sizeDelta.y / 2 >= Screen.height * 0.6f)
                 state = Opening;
             else
                 state = Closing;
         }
-        
     }
 
     public void CloseMenu() 
@@ -98,16 +124,15 @@ public class BottomBarMachine : MonoBehaviour
         state = Closing;
     }
 
-    void Closing()
+    private void Closing()
     {
-        IsOpened = false;
         transform.position = Vector3.Lerp(transform.position, temporaryPos, 0.5f);
 
         if (Vector3.Distance(transform.position, temporaryPos) < 1)
             state = Closed;
     }
 
-    void Opening()
+    private void Opening()
     {
         transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x, (Screen.height / 2) - 25, transform.position.z), 0.5f);
@@ -115,18 +140,27 @@ public class BottomBarMachine : MonoBehaviour
         if (Vector3.Distance(transform.position, new Vector3(transform.position.x, (Screen.height / 2) - 25, transform.position.z)) < 1)
             state = Opened;
     }
-    void Opened()
+    private void Opened()
     {
+        if (!IsOpened)
+        {
+            //GameController.BarStateChange[(int)GameController.GameMode](BarPosition.Opened);
+            achievementsLabel.text = GameController.GameStorage.Achievements.ToString();
+        }
         IsOpened = true;
         // --- ЗАГЛУШКА ---
         // открыто, ничего не делаем
     }
 
-    void Closed() 
+    private void Closed() 
     {
+        if (IsOpened)
+        {
+            //GameController.BarStateChange[(int)GameController.GameMode](BarPosition.Closed);
+        }
+        IsOpened = false;
         // включить обратно управление картой (если отключено)
         if (!cardMachine.enabled) cardMachine.enabled = true;
-
         state = Idle;
     }
 

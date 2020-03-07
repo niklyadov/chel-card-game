@@ -27,7 +27,7 @@ public class BottomBarHider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CheckMouse(raycaster) && Input.GetKey(KeyCode.Mouse0) && rectTransform.position.y < 2300 && barMachine.IsOpened)
+        if (CheckMouse(raycaster) && Input.GetKey(KeyCode.Mouse0) && rectTransform.position.y < Screen.height * 0.8f && barMachine.IsOpened)
         {
             barMachine.CloseMenu();
         }
